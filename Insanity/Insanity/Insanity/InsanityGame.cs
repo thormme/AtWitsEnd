@@ -58,6 +58,7 @@ namespace Insanity
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            GameTextures["Button"] = Content.Load<Texture2D>("Button");
 
             GameFonts["TitleFont"] = Content.Load<SpriteFont>("TitleFont");
             GameFonts["ButtonFont"] = Content.Load<SpriteFont>("ButtonFont");

@@ -9,7 +9,8 @@ namespace Insanity
 {
     public class MainMenu : MenuBase
     {
-        public MainMenu() : base()
+        public MainMenu()
+            : base(new List<Button> { new Button("Button", "Pick Me!", new Rectangle(100,300,120,60), () => {} )})
         {
             TitleText = "Main Menu";
             TitlePosition = new Vector2(300, 100);

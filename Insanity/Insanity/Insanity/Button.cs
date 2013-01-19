@@ -26,7 +26,10 @@ namespace Insanity
             sprite = new Sprite(assetName);
             onSelect = selectFunc;
             position = pos;
-            fontPosition = new Vector2((pos.X + pos.Width) / 2, (pos.Y + pos.Height) / 2);
+            fontPosition = new Vector2(pos.X + pos.Width / 4, pos.Y + pos.Height / 4);
+            spriteFont = InsanityGame.GameFonts["ButtonFont"];
+
+            sprite.ChangeAnimation("Selected");
         }
 
         public void Update(GameTime gameTime)
