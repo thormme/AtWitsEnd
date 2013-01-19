@@ -19,10 +19,13 @@ namespace Insanity
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        static IGamestateManager GamestateManager;
+
         public InsanityGame()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            GamestateManager = new GamestateManager();
         }
 
         /// <summary>
@@ -71,6 +74,7 @@ namespace Insanity
                 this.Exit();
 
             // TODO: Add your update logic here
+            GamestateManager.Current.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -82,6 +86,8 @@ namespace Insanity
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+
+            GamestateManager.Current.Draw(gameTime);
 
             // TODO: Add your drawing code here
 
