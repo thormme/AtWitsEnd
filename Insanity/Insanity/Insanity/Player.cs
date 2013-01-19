@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Insanity.GameStates;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Insanity
 {
@@ -12,12 +13,12 @@ namespace Insanity
         // 0-fully sane 1-insane;
         public double InsanityLevel = 0;
         public Vector2 Velocity = new Vector2();
-
+        
         private float mHorizontalSpeed = 30;
         private float mJumpSpeed = 90;
 
         public Player(Vector2 position)
-        : base(position, new Vector2(120, 180), new Sprite("tiles/ground"))
+            : base(position, new Vector2(120, 180), new Sprite("spriteSheets/player sane spritesheet"))
         {
         }
 
@@ -32,10 +33,12 @@ namespace Insanity
             if (InsanityGame.Input.MoveLeft())
             {
                 Velocity.X = -mHorizontalSpeed;
+                facingLeft = true;
             }
             if (InsanityGame.Input.MoveRight())
             {
                 Velocity.X = mHorizontalSpeed;
+                facingLeft = false;
             }
             if (InsanityGame.Input.Jump())
             {

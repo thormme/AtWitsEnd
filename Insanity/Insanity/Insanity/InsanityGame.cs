@@ -92,6 +92,15 @@ namespace Insanity
                 GameTextures[key] = Content.Load<Texture2D>(key);
             }
 
+            System.IO.DirectoryInfo spriteDirectory = new System.IO.DirectoryInfo("Content/spriteSheets");
+            fileList = spriteDirectory.GetFiles("*.xnb*", System.IO.SearchOption.AllDirectories);
+
+            foreach (FileInfo fileInfo in fileList)
+            {
+                string key = spriteDirectory.Name + "/" + Path.GetFileNameWithoutExtension(fileInfo.Name);
+                GameTextures[key] = Content.Load<Texture2D>(key);
+            }
+
             //GamestateManager.push(new Level("level0"));
             GamestateManager.Push(new MainMenu());
         }
