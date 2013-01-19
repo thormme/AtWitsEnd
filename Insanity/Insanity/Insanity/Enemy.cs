@@ -14,8 +14,24 @@ namespace Insanity
         public Enemy(Vector2 position, Vector2 size, Sprite sprite, double visSanLevel = 0, double harmSanLevel = 0)
             : base(position, size, sprite)
         {
-            visibleSanityLevel = 0;
-            harmfulSanityLevel = 0;
+            visibleSanityLevel = visSanLevel;
+            harmfulSanityLevel = harmSanLevel;
+        }
+
+        public virtual bool IsVisible(double sanityLevel)
+        {
+            return sanityLevel > visibleSanityLevel;
+        }
+
+        public virtual bool IsHarmful(double sanityLevel)
+        {
+            return sanityLevel > harmfulSanityLevel;
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+            //act similarly to player
         }
     }
 }
