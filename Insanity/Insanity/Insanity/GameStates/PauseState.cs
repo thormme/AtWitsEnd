@@ -21,6 +21,8 @@ namespace Insanity.GameStates
                     InsanityGame.GamestateManager.push(new MainMenu());
                 })})
         {
+            TitleText = "pause";
+            TitlePosition = new Vector2(400, 100);
         }
     }
 }
