@@ -12,13 +12,13 @@ namespace Insanity.GameStates
             : base(new List<Button> { 
                 new Button("Button", "Resume", new Rectangle(300,200, 120, 60), () => 
                 {
-                    InsanityGame.GamestateManager.pop();
+                    InsanityGame.GamestateManager.Pop();
                 }),
                 new Button("Button", "Quit", new Rectangle(300, 300, 120, 60), () => 
                 {
-                    InsanityGame.GamestateManager.pop();
-                    InsanityGame.GamestateManager.pop();
-                    InsanityGame.GamestateManager.push(new MainMenu());
+                    InsanityGame.GamestateManager.Pop();
+                    InsanityGame.GamestateManager.Pop();
+                    InsanityGame.GamestateManager.Push(new MainMenu());
                 })})
         {
             TitleText = "pause";

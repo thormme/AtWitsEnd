@@ -89,7 +89,7 @@ namespace Insanity
             }
 
             //GamestateManager.push(new Level("level0"));
-            GamestateManager.push(new MainMenu());
+            GamestateManager.Push(new MainMenu());
         }
 
         /// <summary>

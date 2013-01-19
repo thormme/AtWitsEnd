@@ -10,8 +10,8 @@ namespace Insanity
     public class MainMenu : MenuBase
     {
         public MainMenu()
-            : base(new List<Button> { new Button("Button", "Pick Me!", new Rectangle(100, 200, 120, 60), () => { InsanityGame.GamestateManager.pop(); InsanityGame.GamestateManager.push(new Level("level0")); }),
-                                        new Button("Button", "No, Me!!", new Rectangle(100, 300, 120, 60), () => {InsanityGame.GamestateManager.pop(); InsanityGame.GamestateManager.push(new MainMenu());}) })
+            : base(new List<Button> { new Button("Button", "Pick Me!", new Rectangle(100, 200, 120, 60), () => { InsanityGame.GamestateManager.Pop(); InsanityGame.GamestateManager.Push(new Level("level0")); }),
+                                        new Button("Button", "No, Me!!", new Rectangle(100, 300, 120, 60), () => {InsanityGame.GamestateManager.Pop(); InsanityGame.GamestateManager.Push(new MainMenu());}) })
         {
             TitleText = "Main Menu";
             TitlePosition = new Vector2(400, 100);

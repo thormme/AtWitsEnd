@@ -21,7 +21,7 @@ namespace Insanity
             GamestateStack = new Stack<IGamestate>();
         }
 
-        public void push(IGamestate state)
+        public void Push(IGamestate state)
         {
             //TODO: add threading for dynamic load?
             state.Initialize(Content, Graphics);
@@ -30,7 +30,7 @@ namespace Insanity
 
         }
 
-        public IGamestate pop()
+        public IGamestate Pop()
         {
             return GamestateStack.Pop();
         }
