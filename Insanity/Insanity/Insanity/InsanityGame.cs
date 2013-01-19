@@ -20,12 +20,13 @@ namespace Insanity
         SpriteBatch spriteBatch;
 
         static IGamestateManager GamestateManager;
+        static InputHandler Input;
 
         public InsanityGame()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            GamestateManager = new GamestateManager();
+            GamestateManager = new GamestateManager(Content, graphics);
         }
 
         /// <summary>

@@ -14,8 +14,10 @@ namespace Insanity
 
         Stack<IGamestate> GamestateStack;
 
-        public GamestateManager()
+        public GamestateManager(ContentManager content, GraphicsDeviceManager graphics)
         {
+            Content = content;
+            Graphics = graphics;
             GamestateStack = new Stack<IGamestate>();
         }
 
