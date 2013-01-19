@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using System.IO;
+using Insanity.GameStates;
 
 namespace Insanity
 {
@@ -20,6 +21,8 @@ namespace Insanity
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        public static bool PendingQuit; //terrible, but it works
+
         public static IGamestateManager GamestateManager;
         public static InputHandler Input;
         public static Dictionary<string, Texture2D> GameTextures;
@@ -28,6 +31,7 @@ namespace Insanity
 
         public InsanityGame()
         {
+            PendingQuit = false;
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             GamestateManager = new GamestateManager(Content, graphics);
@@ -110,7 +114,7 @@ namespace Insanity
         {
             // Allows the game to exit
             Input.Update();
-            if (Input.Quit())
+            if (Input.Quit() || PendingQuit == true)
                 this.Exit();
 
             // TODO: Add your update logic here
