@@ -23,6 +23,8 @@ namespace Insanity
         public static InputHandler Input;
         public static Dictionary<string, Texture2D> GameTextures;
 
+        public static Dictionary<string, SpriteFont> GameFonts;
+
         public InsanityGame()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -30,6 +32,7 @@ namespace Insanity
             GamestateManager = new GamestateManager(Content, graphics);
             Input = new InputHandler();
             GameTextures = new Dictionary<string, Texture2D>();
+            GameFonts = new Dictionary<string, SpriteFont>();
         }
 
         /// <summary>
@@ -55,7 +58,11 @@ namespace Insanity
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-                GamestateManager.push(new MainMenu());
+
+            GameFonts["TitleFont"] = Content.Load<SpriteFont>("TitleFont");
+            GameFonts["ButtonFont"] = Content.Load<SpriteFont>("ButtonFont");
+
+            GamestateManager.push(new MainMenu());
         }
 
         /// <summary>
@@ -75,7 +82,8 @@ namespace Insanity
         protected override void Update(GameTime gameTime)
         {
             // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            Input.Update();
+            if (Input.Quit())
                 this.Exit();
 
             // TODO: Add your update logic here

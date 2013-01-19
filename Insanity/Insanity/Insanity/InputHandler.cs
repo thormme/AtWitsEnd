@@ -15,6 +15,11 @@ namespace Insanity
         {
         }
 
+        public bool Quit()
+        {
+            return CurrentKeyboardState.IsKeyDown(Keys.Escape);
+        }
+
         public void Update()
         {
             OldKeyboardState = CurrentKeyboardState;

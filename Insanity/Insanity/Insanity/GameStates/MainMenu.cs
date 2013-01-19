@@ -7,43 +7,37 @@ using Microsoft.Xna.Framework;
 
 namespace Insanity
 {
-    public class MainMenu : IGamestate
+    public class MainMenu : MenuBase
     {
-        private bool loaded;
-        public MainMenu()
+        public MainMenu() : base()
         {
-            loaded = false;
+            TitleText = "Main Menu";
+            TitlePosition = new Vector2(300, 100);
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
-            
+            base.Update(gameTime);
         }
 
-        public void Draw(GameTime gameTime)
+        public override void Draw(GameTime gameTime)
         {
-            
+            base.Draw(gameTime);
         }
 
-        public void Initialize(ContentManager Content, GraphicsDeviceManager graphics)
+        public override void Initialize(ContentManager Content, GraphicsDeviceManager graphics)
         {
-            
+            base.Initialize(Content, graphics);
         }
 
-        public void LoadContent()
+        public override void LoadContent()
         {
-            loaded = true;
+            base.LoadContent();
         }
 
-        public void UnloadContent()
+        public override void UnloadContent()
         {
-            
-        }
-
-
-        public bool Loaded
-        {
-            get { return loaded; }
+            base.UnloadContent();
         }
     }
 }
