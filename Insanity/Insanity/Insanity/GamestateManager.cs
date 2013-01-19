@@ -27,7 +27,7 @@ namespace Insanity
 
         public IGamestate Current
         {
-            get { throw new NotImplementedException(); }
+            get { return GamestateStack.Peek(); }
         }
     }
 }

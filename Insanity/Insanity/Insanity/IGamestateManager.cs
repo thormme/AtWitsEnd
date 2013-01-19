@@ -9,6 +9,6 @@ namespace Insanity
     {
         void push(IGamestate state);
         void pop(IGamestate state);
-        IGamestate Current {get; private set}
+        IGamestate Current { get; }
     }
 }
