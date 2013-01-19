@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 
-namespace Insanity
+namespace Insanity.Actors
 {
-    public abstract class Enemy : Actor
+    public abstract class Enemy : Creature
     {
         protected double visibleSanityLevel;
         protected double harmfulSanityLevel;
@@ -31,7 +31,7 @@ namespace Insanity
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            //act similarly to player
+            move();
         }
     }
 }
