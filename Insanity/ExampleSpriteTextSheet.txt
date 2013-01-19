@@ -1,0 +1,14 @@
+frameWidth: 2 //in blocks
+frameHeight: 3 //in blocks
+maxFramesPerRow: 20 
+NumAnimations: 2
+AnimationLength: 3 //numColumns
+AnimationSpeed: 20 //in milliseconds
+AnimationName: Walk
+NextAnimation: Walk
+InitialRow: 0 
+AnimationLength: 2
+AnimationSpeed: 20
+AnimationName: Jump
+NextAnimation: Walk
+InitialRow: 1
