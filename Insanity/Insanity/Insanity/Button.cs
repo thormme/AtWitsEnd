@@ -27,7 +27,7 @@ namespace Insanity
             onSelect = selectFunc;
             position = pos;
             fontPosition = new Vector2(pos.X + pos.Width / 2, pos.Y + pos.Height / 2);
-            spriteFont = InsanityGame.GameFonts["ButtonFont"];
+            spriteFont = InsanityGame.GameFonts["fonts/ButtonFont"];
         }
 
         public void Hit()
