@@ -44,6 +44,7 @@ namespace Insanity
         {
             texture = InsanityGame.GameTextures[assetName];
             ReadInfo(assetName);
+            currentAnimation = spriteInfo.Animations.First().Value;
             elapsedTime = 0;
         }
 
@@ -116,7 +117,7 @@ namespace Insanity
                 elapsedTime -= currentAnimation.animationSpeed;
                 currentFrame++;
 
-                if (currentFrame > currentAnimation.length)
+                if (currentFrame >= currentAnimation.length)
                 {
                     currentFrame = 0;
                     currentAnimation = spriteInfo.Animations[currentAnimation.NextAnimation];
@@ -129,7 +130,9 @@ namespace Insanity
         {
             int row = currentAnimation.StartingRow + currentFrame / spriteInfo.maxLength;
             int column = currentFrame % spriteInfo.maxLength;
-            source = new Rectangle(row, column, spriteInfo.frameWidth * BlockWidth, spriteInfo.frameHeight * BlockHeight);
+            int width = spriteInfo.frameWidth * BlockWidth;
+            int height = spriteInfo.frameHeight * BlockHeight;
+            source = new Rectangle(column * width, row * height, width, height);
         }
 
         public bool ChangeAnimation(string animationName)

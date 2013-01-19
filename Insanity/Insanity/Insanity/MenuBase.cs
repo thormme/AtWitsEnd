@@ -17,10 +17,10 @@ namespace Insanity
         protected String TitleText;
         protected Vector2 TitlePosition;
         
-        public MenuBase()
+        public MenuBase(List<Button> menuButtons)
         {
             loaded = false;
-            buttons = new List<Button>();
+            buttons = menuButtons ?? new List<Button>();
         }
 
         public virtual void Update(GameTime gameTime)
