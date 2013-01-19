@@ -6,12 +6,12 @@ using Microsoft.Xna.Framework;
 
 namespace Insanity
 {
-    interface IGamestate
+    public interface IGamestate
     {
-        virtual void Update(GameTime gameTime);
-        virtual void Draw(GameTime gameTime);
-        virtual void Initialize();
-        virtual void LoadContent();
-        virtual void UnloadContent();
+        void Update(GameTime gameTime);
+        void Draw(GameTime gameTime);
+        void Initialize();
+        void LoadContent();
+        void UnloadContent();
     }
 }
