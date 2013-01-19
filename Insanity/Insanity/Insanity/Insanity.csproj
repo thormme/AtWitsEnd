@@ -116,7 +116,7 @@
     <Compile Include="IGamestateManager.cs" />
     <Compile Include="GameStates\MainMenu.cs" />
     <Compile Include="InputHandler.cs" />
-    <Compile Include="Level.cs" />
+    <Compile Include="GameStates\Level.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PlayerState.cs" />
     <Compile Include="MenuBase.cs" />
