@@ -43,7 +43,9 @@ namespace Insanity
 
         public Level(string levelName)
         {
+            Camera = new Camera(new Vector2());
             Loaded = false;
+            Actors = new List<Actor>();
             Tiles = new List<List<Tile>>();
 
             for (int i = 0; i < 3; i++)
@@ -86,6 +88,7 @@ namespace Insanity
 
         public void Draw(GameTime gameTime)
         {
+            mSpriteBatch.Begin();
             
             int startTileIndex = (int)(Camera.Position.X / Tile.Width) + (int)(mNumTilesHorizontal * (Camera.Position.Y / Tile.Height));
             for (int y = 0; y < mGraphics.PreferredBackBufferHeight / Tile.Height + 1; y++)
@@ -101,6 +104,8 @@ namespace Insanity
             {
                 actor.Draw(Camera, mSpriteBatch, gameTime);
             }
+
+            mSpriteBatch.End();
         }
 
         public void Initialize(ContentManager Content, GraphicsDeviceManager graphics)

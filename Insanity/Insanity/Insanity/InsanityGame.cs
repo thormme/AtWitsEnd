@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using System.IO;
 
 namespace Insanity
 {
@@ -60,10 +61,34 @@ namespace Insanity
             // TODO: use this.Content to load your game content here
             GameTextures["Button"] = Content.Load<Texture2D>("Button");
 
-            GameFonts["TitleFont"] = Content.Load<SpriteFont>("TitleFont");
-            GameFonts["ButtonFont"] = Content.Load<SpriteFont>("ButtonFont");
+            System.IO.DirectoryInfo fontsDirectory = new System.IO.DirectoryInfo("Content/fonts");
+            IEnumerable<FileInfo> fileList = fontsDirectory.GetFiles("*.*", System.IO.SearchOption.AllDirectories);
 
-            GamestateManager.push(new MainMenu());
+            foreach (FileInfo fileInfo in fileList)
+            {
+                string key = fontsDirectory.Name + "/" + Path.GetFileNameWithoutExtension(fileInfo.Name);
+                GameFonts[key] = Content.Load<SpriteFont>(key);
+            }
+
+            System.IO.DirectoryInfo levelDirectory = new System.IO.DirectoryInfo("Content/levels");
+            fileList = levelDirectory.GetFiles("*.*", System.IO.SearchOption.AllDirectories);
+
+            foreach (FileInfo fileInfo in fileList)
+            {
+                string key = levelDirectory.Name + "/" + Path.GetFileNameWithoutExtension(fileInfo.Name);
+                GameTextures[key] = Content.Load<Texture2D>(key);
+            }
+
+            System.IO.DirectoryInfo tileDirectory = new System.IO.DirectoryInfo("Content/tiles");
+            fileList = tileDirectory.GetFiles("*.*", System.IO.SearchOption.AllDirectories);
+
+            foreach (FileInfo fileInfo in fileList)
+            {
+                string key = tileDirectory.Name + "/" + Path.GetFileNameWithoutExtension(fileInfo.Name);
+                GameTextures[key] = Content.Load<Texture2D>(key);
+            }
+
+            GamestateManager.push(new Level("level0"));
         }
 
         /// <summary>

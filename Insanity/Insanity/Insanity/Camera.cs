@@ -9,5 +9,10 @@ namespace Insanity
     public class Camera
     {
         public Vector2 Position;
+
+        public Camera(Vector2 position)
+        {
+            Position = position;
+        }
     }
 }
