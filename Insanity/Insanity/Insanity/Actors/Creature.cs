@@ -42,12 +42,28 @@ namespace Insanity.Actors
             Velocity.Y += (float)gameTime.ElapsedGameTime.TotalSeconds * 40;
             Position += (float)gameTime.ElapsedGameTime.TotalSeconds * Velocity;
 
-            //List<Tile> collidingTiles = OwnerLevel.GetCollidingTiles(new Rectangle((int)Position.X, (int)Position.Y, (int)Size.X, (int)Size.Y), true);
-            List<Tile> collidingFootTiles = OwnerLevel.GetCollidingTiles(new Rectangle((int)Position.X, (int)Position.Y + (int)Size.Y - 30, (int)Size.X, 30), false);
-            if (collidingFootTiles.Count > 0)
+            int feetHeight = 10;
+            int sideWidth = 30;
+            List<Tile> collidingLeftTiles = OwnerLevel.GetCollidingTiles(new Rectangle((int)Position.X, (int)Position.Y, (int)sideWidth, (int)Size.Y - feetHeight), false);
+            List<Tile> collidingRightTiles = OwnerLevel.GetCollidingTiles(new Rectangle((int)Position.X + (int)Size.X - sideWidth, (int)Position.Y, (int)sideWidth, (int)Size.Y - feetHeight), false);
+            List<Tile> collidingFootTiles = OwnerLevel.GetCollidingTiles(new Rectangle((int)Position.X + 2, (int)Position.Y + (int)Size.Y - feetHeight, (int)Size.X - 2, feetHeight), false).Where((tile) => 
+            {
+                return !(collidingLeftTiles.Contains(tile) || collidingRightTiles.Contains(tile)); 
+            }).ToList();
+            if (collidingFootTiles.Count > 0 && Velocity.Y > 0)
             {
                 Velocity.Y = 0;
                 Position.Y = collidingFootTiles[0].Y - (int)Size.Y;
+            }
+            if (collidingLeftTiles.Count > 0)
+            {
+                Velocity.X = 0;
+                Position.X = collidingLeftTiles[0].X + Tile.Width;
+            }
+            if (collidingRightTiles.Count > 0)
+            {
+                Velocity.X = 0;
+                Position.X = collidingRightTiles[0].X - Size.X;
             }
         }
 
