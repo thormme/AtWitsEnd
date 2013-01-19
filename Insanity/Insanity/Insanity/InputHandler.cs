@@ -51,9 +51,14 @@ namespace Insanity
             return CurrentKeyboardState.IsKeyDown(Keys.S) && !OldKeyboardState.IsKeyDown(Keys.S);
         }
 
-        internal bool NewEnterPress()
+        public bool NewEnterPress()
         {
             return CurrentKeyboardState.IsKeyDown(Keys.Enter) && !OldKeyboardState.IsKeyDown(Keys.Enter);
+        }
+
+        public bool Pause()
+        {
+            return CurrentKeyboardState.IsKeyDown(Keys.P) && !OldKeyboardState.IsKeyDown(Keys.P);
         }
     }
 }

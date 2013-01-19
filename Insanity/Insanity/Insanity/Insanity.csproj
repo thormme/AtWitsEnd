@@ -112,6 +112,7 @@
     <Compile Include="Button.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="GamestateManager.cs" />
+    <Compile Include="GameStates\PauseState.cs" />
     <Compile Include="IGamestate.cs" />
     <Compile Include="IGamestateManager.cs" />
     <Compile Include="GameStates\MainMenu.cs" />
