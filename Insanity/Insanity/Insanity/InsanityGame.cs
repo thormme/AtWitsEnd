@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using System.IO;
 
 namespace Insanity
 {
@@ -19,10 +20,20 @@ namespace Insanity
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        public static IGamestateManager GamestateManager;
+        public static InputHandler Input;
+        public static Dictionary<string, Texture2D> GameTextures;
+
+        public static Dictionary<string, SpriteFont> GameFonts;
+
         public InsanityGame()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            GamestateManager = new GamestateManager(Content, graphics);
+            Input = new InputHandler();
+            GameTextures = new Dictionary<string, Texture2D>();
+            GameFonts = new Dictionary<string, SpriteFont>();
         }
 
         /// <summary>
@@ -48,6 +59,37 @@ namespace Insanity
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            GameTextures["Button"] = Content.Load<Texture2D>("Button");
+
+            System.IO.DirectoryInfo fontsDirectory = new System.IO.DirectoryInfo("Content/fonts");
+            IEnumerable<FileInfo> fileList = fontsDirectory.GetFiles("*.xnb*", System.IO.SearchOption.AllDirectories);
+
+            foreach (FileInfo fileInfo in fileList)
+            {
+                string key = fontsDirectory.Name + "/" + Path.GetFileNameWithoutExtension(fileInfo.Name);
+                GameFonts[key] = Content.Load<SpriteFont>(key);
+            }
+
+            System.IO.DirectoryInfo levelDirectory = new System.IO.DirectoryInfo("Content/levels");
+            fileList = levelDirectory.GetFiles("*.xnb*", System.IO.SearchOption.AllDirectories);
+
+            foreach (FileInfo fileInfo in fileList)
+            {
+                string key = levelDirectory.Name + "/" + Path.GetFileNameWithoutExtension(fileInfo.Name);
+                GameTextures[key] = Content.Load<Texture2D>(key);
+            }
+
+            System.IO.DirectoryInfo tileDirectory = new System.IO.DirectoryInfo("Content/tiles");
+            fileList = tileDirectory.GetFiles("*.xnb*", System.IO.SearchOption.AllDirectories);
+
+            foreach (FileInfo fileInfo in fileList)
+            {
+                string key = tileDirectory.Name + "/" + Path.GetFileNameWithoutExtension(fileInfo.Name);
+                GameTextures[key] = Content.Load<Texture2D>(key);
+            }
+
+            //GamestateManager.push(new Level("level0"));
+            GamestateManager.Push(new MainMenu());
         }
 
         /// <summary>
@@ -67,10 +109,12 @@ namespace Insanity
         protected override void Update(GameTime gameTime)
         {
             // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            Input.Update();
+            if (Input.Quit())
                 this.Exit();
 
             // TODO: Add your update logic here
+            GamestateManager.Current.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -82,6 +126,8 @@ namespace Insanity
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+
+            GamestateManager.Current.Draw(gameTime);
 
             // TODO: Add your drawing code here
 
