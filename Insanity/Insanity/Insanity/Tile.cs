@@ -29,7 +29,7 @@ namespace Insanity
 
         public virtual void Draw(Camera camera, SpriteBatch spriteBatch, GameTime gameTime)
         {
-            Sprite.Draw(gameTime, spriteBatch, new Rectangle(X + (int)camera.Position.X, Y + (int)camera.Position.Y, Width, Height));
+            Sprite.Draw(gameTime, spriteBatch, new Rectangle(X + (int)camera.Position.X, Y + (int)camera.Position.Y, Width, Height), false);
         }
     }
 }

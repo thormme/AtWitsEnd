@@ -26,7 +26,8 @@ namespace Insanity
                 (int)Positon.X + (int)camera.Position.X,
                 (int)Positon.Y + (int)camera.Position.Y,
                 (int)Size.X,
-                (int)Size.Y));
+                (int)Size.Y),
+                false);
         }
 
         public virtual void Update(GameTime gameTime)
