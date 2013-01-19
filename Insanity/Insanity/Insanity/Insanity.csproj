@@ -110,6 +110,7 @@
     <Compile Include="GamestateManager.cs" />
     <Compile Include="IGamestate.cs" />
     <Compile Include="IGamestateManager.cs" />
+    <Compile Include="MainMenu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="InsanityGame.cs" />

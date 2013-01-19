@@ -2,11 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework;
 
 namespace Insanity
 {
     public class GamestateManager : IGamestateManager
     {
+        ContentManager Content;
+        GraphicsDeviceManager Graphics;
+
         Stack<IGamestate> GamestateStack;
 
         public GamestateManager()
@@ -16,12 +21,16 @@ namespace Insanity
 
         public void push(IGamestate state)
         {
-            throw new NotImplementedException();
+            //TODO: add threading for dynamic load?
+            state.Initialize(Content, Graphics);
+            state.LoadContent();
+            GamestateStack.Push(state);
+
         }
 
-        public void pop(IGamestate state)
+        public IGamestate pop()
         {
-            throw new NotImplementedException();
+            return GamestateStack.Pop();
         }
 
 

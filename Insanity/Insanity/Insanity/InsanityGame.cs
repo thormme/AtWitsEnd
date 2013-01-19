@@ -37,6 +37,7 @@ namespace Insanity
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            GamestateManager.push(new MainMenu());
 
             base.Initialize();
         }

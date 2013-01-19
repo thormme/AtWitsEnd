@@ -8,7 +8,7 @@ namespace Insanity
     public interface IGamestateManager
     {
         void push(IGamestate state);
-        void pop(IGamestate state);
+        IGamestate pop();
         IGamestate Current { get; }
     }
 }
