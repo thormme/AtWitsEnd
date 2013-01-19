@@ -46,6 +46,7 @@ namespace Insanity
             ReadInfo(assetName);
             currentAnimation = spriteInfo.Animations.First().Value;
             elapsedTime = 0;
+            UpdateSource();
         }
 
         private void ReadInfo(string assetName)
@@ -101,7 +102,8 @@ namespace Insanity
         {
             if (flipped)
             {
-                spriteBatch.Draw(texture, new Rectangle(position.X + position.Width, position.Y, -1 * position.Width, position.Height), source, Color.White);
+                //spriteBatch.Draw(texture, new Rectangle(position.X + position.Width, position.Y, -1 * position.Width, position.Height), source, Color.White);
+                spriteBatch.Draw(texture, position, source, Color.White, 0, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
             }
             else
             {
