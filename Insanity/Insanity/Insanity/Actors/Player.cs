@@ -15,8 +15,9 @@ namespace Insanity.Actors
         public double InsanityLevel = 0;
 
         public Player(Vector2 position)
-            : base(position, new Vector2(120, 180), new Sprite("spriteSheets/player sane spritesheet"))
+            : base(position, new Vector2(120, 240), new Sprite("spriteSheets/player sane spritesheet"), new InputHandler())
         {
+            Sprite.ChangeAnimation("Walk");
         }
 
         public Player(List<string> args)
@@ -27,34 +28,9 @@ namespace Insanity.Actors
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            if (InsanityGame.Input.MoveLeft())
-            {
-                Velocity.X = -mHorizontalSpeed;
-                facingLeft = true;
-            }
-            if (InsanityGame.Input.MoveRight())
-            {
-                Velocity.X = mHorizontalSpeed;
-                facingLeft = false;
-            }
-            if (InsanityGame.Input.Jump())
-            {
-                Velocity.Y = -mJumpSpeed;
-            }
-            if (InsanityGame.Input.Pause())
+            if ((mController as InputHandler).Pause())
             {
                 InsanityGame.GamestateManager.Push(new PauseState());
-            }
-
-            Velocity.Y += (float)gameTime.ElapsedGameTime.TotalSeconds * 40;
-            Position += (float)gameTime.ElapsedGameTime.TotalSeconds * Velocity;
-
-            //List<Tile> collidingTiles = OwnerLevel.GetCollidingTiles(new Rectangle((int)Position.X, (int)Position.Y, (int)Size.X, (int)Size.Y), true);
-            List<Tile> collidingFootTiles = OwnerLevel.GetCollidingTiles(new Rectangle((int)Position.X, (int)Position.Y + (int)Size.Y - 30, (int)Size.X, 30), false);
-            if (collidingFootTiles.Count > 0)
-            {
-                Velocity.Y = 0;
-                Position.Y = collidingFootTiles[0].Y - (int)Size.Y;
             }
         }
     }

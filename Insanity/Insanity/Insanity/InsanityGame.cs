@@ -122,7 +122,7 @@ namespace Insanity
         protected override void Update(GameTime gameTime)
         {
             // Allows the game to exit
-            Input.Update();
+            Input.Update(gameTime);
             if (Input.Quit() || PendingQuit == true)
                 this.Exit();
 

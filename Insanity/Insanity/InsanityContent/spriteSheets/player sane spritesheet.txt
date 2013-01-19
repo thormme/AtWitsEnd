@@ -9,7 +9,7 @@ NextAnimation: Jump
 InitialRow: 0 
 InitialColumn: 0
 AnimationLength: 8
-AnimationSpeed: 50
+AnimationSpeed: 100
 AnimationName: Walk
 NextAnimation: Walk
 InitialRow: 1

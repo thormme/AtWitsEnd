@@ -12,7 +12,7 @@ namespace Insanity.Actors
         protected double harmfulSanityLevel;
 
         public Enemy(Vector2 position, Vector2 size, Sprite sprite, double visSanLevel = 0, double harmSanLevel = 0)
-            : base(position, size, sprite)
+            : base(position, size, sprite, new InputHandler())
         {
             visibleSanityLevel = visSanLevel;
             harmfulSanityLevel = harmSanLevel;
@@ -31,7 +31,6 @@ namespace Insanity.Actors
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            move();
         }
     }
 }
