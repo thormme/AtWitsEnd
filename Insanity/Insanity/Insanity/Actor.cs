@@ -9,13 +9,15 @@ namespace Insanity
 {
     public class Actor
     {
-        public Vector2 Positon;
+        public Vector2 Position;
         public Vector2 Size;
         Sprite Sprite;
 
+        public Level OwnerLevel;
+
         public Actor(Vector2 position, Vector2 size, Sprite sprite)
         {
-            Positon = position;
+            Position = position;
             Size = size;
             Sprite = sprite;
         }
@@ -23,8 +25,8 @@ namespace Insanity
         public virtual void Draw(Camera camera, SpriteBatch spriteBatch, GameTime gameTime)
         {
             Sprite.Draw(gameTime, spriteBatch, new Rectangle(
-                (int)Positon.X + (int)camera.Position.X,
-                (int)Positon.Y + (int)camera.Position.Y,
+                (int)Position.X + (int)camera.Position.X,
+                (int)Position.Y + (int)camera.Position.Y,
                 (int)Size.X,
                 (int)Size.Y),
                 false);

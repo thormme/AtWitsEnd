@@ -57,6 +57,7 @@ namespace Insanity
                     Type actorType = Type.GetType(args[0]);
 
                     Actor actor = (Actor) Activator.CreateInstance(actorType, args.Skip(1).ToList());
+                    actor.OwnerLevel = this;
                     Actors.Add(actor);
                 }
             }
@@ -93,6 +94,26 @@ namespace Insanity
             }
         }
 
+        public List<Tile> GetCollidingTiles(Rectangle bounds)
+        {
+            List<Tile> tiles = new List<Tile>();
+
+            int startTileIndex = (int)(bounds.X / Tile.Width) + (int)(mNumTilesHorizontal * (bounds.Y / Tile.Height));
+            for (int y = 0; y < Math.Ceiling((float)bounds.Height / (float)Tile.Height); y++)
+            {
+                int curTileIndex = startTileIndex + mNumTilesHorizontal * y;
+                for (int x = 0; x < Math.Ceiling((float)bounds.Width / (float)Tile.Width); x++)
+                {
+                    if (curTileIndex >= 0)
+                    {
+                        tiles.Add(Tiles[InsanityLevel][curTileIndex]);
+                    }
+                    curTileIndex++;
+                }
+            }
+            return tiles;
+        }
+
         public void Update(GameTime gameTime)
         {
             foreach (Actor actor in Actors)
@@ -111,7 +132,10 @@ namespace Insanity
                 int curTileIndex = startTileIndex + mNumTilesHorizontal * y;
                 for (int x = 0; x < mGraphics.PreferredBackBufferWidth / Tile.Width + 1; x++)
                 {
-                    Tiles[InsanityLevel][curTileIndex].Draw(Camera, mSpriteBatch, gameTime);
+                    if (curTileIndex >= 0)
+                    {
+                        Tiles[InsanityLevel][curTileIndex].Draw(Camera, mSpriteBatch, gameTime);
+                    }
                     curTileIndex++;
                 }
             }
