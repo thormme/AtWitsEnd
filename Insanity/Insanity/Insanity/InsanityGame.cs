@@ -19,14 +19,17 @@ namespace Insanity
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        static IGamestateManager GamestateManager;
-        static InputHandler Input;
+        public static IGamestateManager GamestateManager;
+        public static InputHandler Input;
+        public static Dictionary<string, Texture2D> GameTextures;
 
         public InsanityGame()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             GamestateManager = new GamestateManager(Content, graphics);
+            Input = new InputHandler();
+            GameTextures = new Dictionary<string, Texture2D>();
         }
 
         /// <summary>
