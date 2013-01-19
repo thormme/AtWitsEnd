@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Insanity
 {
@@ -10,22 +12,33 @@ namespace Insanity
     {
         public int InsanityLevel;
 
+        // Access Tiles[insanity][tileIndex]
         public List<List<Tile>> Tiles;
-        public List<Actor> GameObjects;
+        public List<Actor> Actors;
+
+        GraphicsDeviceManager mGraphics;
+        SpriteBatch mSpriteBatch;
 
         public void Update(GameTime gameTime)
         {
-            throw new NotImplementedException();
+            foreach (Actor actor in Actors)
+            {
+                actor.Update(gameTime);
+            }
         }
 
         public void Draw(GameTime gameTime)
         {
-            throw new NotImplementedException();
+            foreach (Tile tile in Tiles[InsanityLevel])
+            {
+                tile.Draw(mSpriteBatch, gameTime);
+            }
         }
 
-        public void Initialize()
+        public void Initialize(ContentManager Content, GraphicsDeviceManager graphics)
         {
-            throw new NotImplementedException();
+            mGraphics = graphics;
+            mSpriteBatch = new SpriteBatch(mGraphics.GraphicsDevice);
         }
 
         public void LoadContent()

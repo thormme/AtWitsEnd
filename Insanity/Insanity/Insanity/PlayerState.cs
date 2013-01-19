@@ -5,9 +5,7 @@ using System.Text;
 
 namespace Insanity
 {
-    class Player : Actor
+    public static class PlayerState
     {
-        // 0-fully sane 1-insane;
-        double InsanityLevel;
     }
 }
