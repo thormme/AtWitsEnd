@@ -49,9 +49,12 @@ namespace Insanity
             Velocity.Y += (float)gameTime.ElapsedGameTime.TotalSeconds * 40;
             Position += (float)gameTime.ElapsedGameTime.TotalSeconds * Velocity;
 
-            foreach (Tile tile in OwnerLevel.GetCollidingTiles(new Rectangle((int)Position.X, (int)Position.Y, (int)Size.X, (int)Size.Y)))
+            //List<Tile> collidingTiles = OwnerLevel.GetCollidingTiles(new Rectangle((int)Position.X, (int)Position.Y, (int)Size.X, (int)Size.Y), true);
+            List<Tile> collidingFootTiles = OwnerLevel.GetCollidingTiles(new Rectangle((int)Position.X, (int)Position.Y + (int)Size.Y - 30, (int)Size.X, 30), false);
+            if (collidingFootTiles.Count > 0)
             {
-                Console.WriteLine(tile.X + " " + tile.Y);
+                Velocity.Y = 0;
+                Position.Y = collidingFootTiles[0].Y - (int)Size.Y;
             }
         }
     }
