@@ -41,7 +41,6 @@ namespace Insanity
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            GamestateManager.push(new MainMenu());
 
             base.Initialize();
         }
@@ -56,6 +55,7 @@ namespace Insanity
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+                GamestateManager.push(new MainMenu());
         }
 
         /// <summary>
