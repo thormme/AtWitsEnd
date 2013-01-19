@@ -12,7 +12,8 @@ namespace Insanity
     {
         public Vector2 Position;
         public Vector2 Size;
-        Sprite Sprite;
+        protected Sprite Sprite;
+        protected bool facingLeft;
 
         public Level OwnerLevel;
 
@@ -21,6 +22,7 @@ namespace Insanity
             Position = position;
             Size = size;
             Sprite = sprite;
+            facingLeft = false;
         }
 
         public virtual void Draw(Camera camera, SpriteBatch spriteBatch, GameTime gameTime)
@@ -30,7 +32,7 @@ namespace Insanity
                 (int)Position.Y + (int)camera.Position.Y,
                 (int)Size.X,
                 (int)Size.Y),
-                false);
+                facingLeft);
         }
 
         public virtual void Update(GameTime gameTime)
