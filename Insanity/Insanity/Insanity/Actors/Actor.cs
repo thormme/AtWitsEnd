@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Insanity.GameStates;
 
-namespace Insanity
+namespace Insanity.Actors
 {
     public class Actor
     {

@@ -7,7 +7,7 @@ using Insanity.GameStates;
 using Microsoft.Xna.Framework.Graphics;
 using Insanity.Actors;
 
-namespace Insanity
+namespace Insanity.Actors
 {
     public class Player : Creature
     {
