@@ -62,7 +62,7 @@ namespace Insanity
             GameFonts["TitleFont"] = Content.Load<SpriteFont>("TitleFont");
             GameFonts["ButtonFont"] = Content.Load<SpriteFont>("ButtonFont");
 
-            GamestateManager.push(new MainMenu());
+            GamestateManager.push(new Level("level0"));
         }
 
         /// <summary>

@@ -43,6 +43,7 @@ namespace Insanity
 
         public Level(string levelName)
         {
+            Camera = new Camera(new Vector2());
             Loaded = false;
             Tiles = new List<List<Tile>>();
 
