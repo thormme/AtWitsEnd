@@ -11,9 +11,14 @@ namespace Insanity
         // 0-fully sane 1-insane;
         double InsanityLevel;
 
-        public Player(Vector2 position, Vector2 size, Sprite sprite)
-        : base(position, size, sprite)
-        { 
+        public Player(Vector2 position)
+        : base(position, new Vector2(120, 180), new Sprite("tiles/ground"))
+        {
+        }
+
+        public Player(List<string> args)
+            : this(new Vector2(float.Parse(args[0]), float.Parse(args[1])))
+        {
         }
     }
 }

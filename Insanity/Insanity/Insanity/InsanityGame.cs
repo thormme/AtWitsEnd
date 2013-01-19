@@ -62,7 +62,7 @@ namespace Insanity
             GameTextures["Button"] = Content.Load<Texture2D>("Button");
 
             System.IO.DirectoryInfo fontsDirectory = new System.IO.DirectoryInfo("Content/fonts");
-            IEnumerable<FileInfo> fileList = fontsDirectory.GetFiles("*.*", System.IO.SearchOption.AllDirectories);
+            IEnumerable<FileInfo> fileList = fontsDirectory.GetFiles("*.xnb*", System.IO.SearchOption.AllDirectories);
 
             foreach (FileInfo fileInfo in fileList)
             {
@@ -71,7 +71,7 @@ namespace Insanity
             }
 
             System.IO.DirectoryInfo levelDirectory = new System.IO.DirectoryInfo("Content/levels");
-            fileList = levelDirectory.GetFiles("*.*", System.IO.SearchOption.AllDirectories);
+            fileList = levelDirectory.GetFiles("*.xnb*", System.IO.SearchOption.AllDirectories);
 
             foreach (FileInfo fileInfo in fileList)
             {
@@ -80,7 +80,7 @@ namespace Insanity
             }
 
             System.IO.DirectoryInfo tileDirectory = new System.IO.DirectoryInfo("Content/tiles");
-            fileList = tileDirectory.GetFiles("*.*", System.IO.SearchOption.AllDirectories);
+            fileList = tileDirectory.GetFiles("*.xnb*", System.IO.SearchOption.AllDirectories);
 
             foreach (FileInfo fileInfo in fileList)
             {
