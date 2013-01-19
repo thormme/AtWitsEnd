@@ -7,3 +7,4 @@ AnimationSpeed: 500 //in milliseconds
 AnimationName: Unselected
 NextAnimation: Unselected
 InitialRow: 0 
+InitialColumn: 0
