@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using System.IO;
 
 namespace Insanity
 {
@@ -46,6 +47,20 @@ namespace Insanity
             Camera = new Camera(new Vector2());
             Loaded = false;
             Actors = new List<Actor>();
+
+            using (var reader = new StreamReader("Content/levels/" + levelName + ".actors"))
+            {
+                while (!reader.EndOfStream)
+                {
+                    string input = reader.ReadLine();
+                    string[] args = input.Split(' ');
+                    Type actorType = Type.GetType(args[0]);
+
+                    Actor actor = (Actor) Activator.CreateInstance(actorType, args.Skip(1).ToList());
+                    Actors.Add(actor);
+                }
+            }
+
             Tiles = new List<List<Tile>>();
 
             for (int i = 0; i < 3; i++)
