@@ -15,8 +15,8 @@ namespace Insanity
         public int Y { get; protected set; }
         public int Index { get; protected set; }
 
-        public static int Width = 16;
-        public static int Height = 16;
+        public static int Width = 60;
+        public static int Height = 60;
 
         public Tile(bool solid, Sprite sprite, int x, int y, int index)
         {
@@ -27,9 +27,9 @@ namespace Insanity
             Index = index;
         }
 
-        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        public virtual void Draw(Camera camera, SpriteBatch spriteBatch, GameTime gameTime)
         {
-            Sprite.Draw(new Rectangle(X, Y, Width, Height));
+            Sprite.Draw(gameTime, spriteBatch, new Rectangle(X + (int)camera.Position.X, Y + (int)camera.Position.Y, Width, Height));
         }
     }
 }

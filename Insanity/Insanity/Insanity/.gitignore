@@ -1,3 +1,4 @@
 /bin/
 /obj/
 /*.db
+/*.csproj.Debug.cachefile

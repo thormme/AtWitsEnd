@@ -108,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actor.cs" />
+    <Compile Include="Camera.cs" />
     <Compile Include="GamestateManager.cs" />
     <Compile Include="IGamestate.cs" />
     <Compile Include="IGamestateManager.cs" />

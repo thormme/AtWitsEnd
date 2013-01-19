@@ -9,20 +9,27 @@ namespace Insanity
 {
     public class Actor
     {
-        Vector2 Positon;
-        Vector2 Size;
+        public Vector2 Positon;
+        public Vector2 Size;
         Sprite Sprite;
 
-        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        public Actor(Vector2 position, Vector2 size, Sprite sprite)
         {
-            Sprite.Draw(new Rectangle(
-                (int)Positon.X,
-                (int)Positon.Y,
+            Positon = position;
+            Size = size;
+            Sprite = sprite;
+        }
+
+        public virtual void Draw(Camera camera, SpriteBatch spriteBatch, GameTime gameTime)
+        {
+            Sprite.Draw(gameTime, spriteBatch, new Rectangle(
+                (int)Positon.X + (int)camera.Position.X,
+                (int)Positon.Y + (int)camera.Position.Y,
                 (int)Size.X,
                 (int)Size.Y));
         }
 
-        public void Update(GameTime gameTime)
+        public virtual void Update(GameTime gameTime)
         {
             Sprite.Update(gameTime);
         }
