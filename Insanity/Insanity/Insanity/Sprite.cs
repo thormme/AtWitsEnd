@@ -19,6 +19,7 @@ namespace Insanity
             public double animationSpeed;
             public string NextAnimation;
             public int StartingRow;
+            public int StartingColumn;
         }
 
         private struct SpriteSheetInfo
@@ -93,6 +94,9 @@ namespace Insanity
                     input = reader.ReadLine();
                     temp.StartingRow = Convert.ToInt32(input.Split(' ')[1]);
 
+                    input = reader.ReadLine();
+                    temp.StartingColumn = Convert.ToInt32(input.Split(' ')[1]);
+
                     spriteInfo.Animations.Add(animationName, temp);
                 }
             }
@@ -131,7 +135,7 @@ namespace Insanity
         private void UpdateSource()
         {
             int row = currentAnimation.StartingRow + currentFrame / spriteInfo.maxLength;
-            int column = currentFrame % spriteInfo.maxLength;
+            int column = (currentAnimation.StartingColumn + currentFrame) % spriteInfo.maxLength;
             int width = spriteInfo.frameWidth * BlockWidth;
             int height = spriteInfo.frameHeight * BlockHeight;
             source = new Rectangle(column * width, row * height, width, height);
