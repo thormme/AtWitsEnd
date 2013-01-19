@@ -16,15 +16,46 @@ namespace Insanity
         protected SpriteBatch spriteBatch;
         protected String TitleText;
         protected Vector2 TitlePosition;
+
+        protected int currentButton;
         
         public MenuBase(List<Button> menuButtons)
         {
             loaded = false;
             buttons = menuButtons ?? new List<Button>();
+            currentButton = 0;
+
+            buttons[currentButton].Select();
         }
 
         public virtual void Update(GameTime gameTime)
         {
+            if (InsanityGame.Input.NewDownPress())
+            {
+                buttons[currentButton].Unselect();
+                currentButton++;
+                if (currentButton >= buttons.Count)
+                {
+                    currentButton = 0;
+                }
+                buttons[currentButton].Select();
+            }
+            if (InsanityGame.Input.NewUpPress())
+            {
+                buttons[currentButton].Unselect();
+                currentButton--;
+                if (currentButton < 0)
+                {
+                    currentButton = buttons.Count - 1;
+                }
+                buttons[currentButton].Select();
+            }
+
+            if (InsanityGame.Input.NewEnterPress())
+            {
+                buttons[currentButton].Hit();
+            }
+
             foreach (var button in buttons)
             {
                 button.Update(gameTime);
@@ -40,7 +71,9 @@ namespace Insanity
                 button.Draw(gameTime, spriteBatch);
             }
 
-            spriteBatch.DrawString(InsanityGame.GameFonts["TitleFont"], TitleText, TitlePosition, Color.Crimson);
+
+            Vector2 fontOrigin = InsanityGame.GameFonts["fonts/TitleFont"].MeasureString(TitleText) / 2;
+            spriteBatch.DrawString(InsanityGame.GameFonts["fonts/TitleFont"], TitleText, TitlePosition, Color.Crimson, 0, fontOrigin, 1, SpriteEffects.None, 0);
 
             spriteBatch.End();
         }

@@ -10,10 +10,11 @@ namespace Insanity
     public class MainMenu : MenuBase
     {
         public MainMenu()
-            : base(new List<Button> { new Button("Button", "Pick Me!", new Rectangle(100,300,120,60), () => {} )})
+            : base(new List<Button> { new Button("Button", "Pick Me!", new Rectangle(100, 200, 120, 60), () => { InsanityGame.GamestateManager.pop(); InsanityGame.GamestateManager.push(new MainMenu()); }),
+                                        new Button("Button", "No, Me!!", new Rectangle(100, 300, 120, 60), () => {InsanityGame.GamestateManager.pop(); InsanityGame.GamestateManager.push(new MainMenu());}) })
         {
             TitleText = "Main Menu";
-            TitlePosition = new Vector2(300, 100);
+            TitlePosition = new Vector2(400, 100);
         }
 
         public override void Update(GameTime gameTime)

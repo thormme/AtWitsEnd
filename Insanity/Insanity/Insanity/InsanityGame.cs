@@ -88,7 +88,8 @@ namespace Insanity
                 GameTextures[key] = Content.Load<Texture2D>(key);
             }
 
-            GamestateManager.push(new Level("level0"));
+            //GamestateManager.push(new Level("level0"));
+            GamestateManager.push(new MainMenu());
         }
 
         /// <summary>
