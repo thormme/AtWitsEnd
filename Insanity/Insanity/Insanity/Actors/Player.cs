@@ -22,7 +22,7 @@ namespace Insanity.Actors
         public int CurrentPills { get; protected set; }
 
         public Player(Vector2 position)
-            : base(position, new Vector2(120, 240), new Sprite("spriteSheets/player sane spritesheet"), new InputHandler())
+            : base(position, new Vector2(60, 240), new Sprite("spriteSheets/player sane spritesheet"), new InputHandler())
         {
             Sprite.ChangeAnimation("Walk");
             InsanityLevel = 0;

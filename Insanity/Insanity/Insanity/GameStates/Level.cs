@@ -105,8 +105,13 @@ namespace Insanity.GameStates
             }
         }
 
-        public List<Tile> GetCollidingTiles(Rectangle bounds, bool inlcudeNonSolid)
+        public List<Tile> GetCollidingTiles(Rectangle bounds, bool inlcudeNonSolid = false, int insanityLevel = -1)
         {
+            if (insanityLevel < 0)
+            {
+                insanityLevel = InsanityLevel;
+            }
+
             List<Tile> tiles = new List<Tile>();
 
             int startTileIndex = (int)(bounds.X / Tile.Width) + (int)(mNumTilesHorizontal * (bounds.Y / Tile.Height));
@@ -117,9 +122,9 @@ namespace Insanity.GameStates
                 int curTileIndex = startTileIndex + mNumTilesHorizontal * y;
                 for (int x = 0; x < numHorizontalTiles; x++)
                 {
-                    if (curTileIndex >= 0 && curTileIndex < Tiles[InsanityLevel].Count)
+                    if (curTileIndex >= 0 && curTileIndex < Tiles[insanityLevel].Count)
                     {
-                        Tile curTile = Tiles[InsanityLevel][curTileIndex];
+                        Tile curTile = Tiles[insanityLevel][curTileIndex];
                         if (inlcudeNonSolid || curTile.Solid)
                         {
                             tiles.Add(curTile);
