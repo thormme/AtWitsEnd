@@ -15,9 +15,10 @@ namespace Insanity
 
         private struct Animation
         {
+            public string Name;
+            public string NextAnimation;
             public int length;
             public double animationSpeed;
-            public string NextAnimation;
             public int StartingRow;
             public int StartingColumn;
         }
@@ -80,18 +81,19 @@ namespace Insanity
                 {
                     var temp = new Animation();
                     string animationName;
+
+                    input = reader.ReadLine();
+                    animationName = input.Split(' ')[1];
+                    temp.Name = animationName;
+
+                    input = reader.ReadLine();
+                    temp.NextAnimation = input.Split(' ')[1];
                     
                     input = reader.ReadLine();                    
                     temp.length = Convert.ToInt32(input.Split(' ')[1]);
                     
                     input = reader.ReadLine();
                     temp.animationSpeed = Convert.ToDouble(input.Split(' ')[1]);
-
-                    input = reader.ReadLine();
-                    animationName = input.Split(' ')[1];
-
-                    input = reader.ReadLine();
-                    temp.NextAnimation = input.Split(' ')[1];
 
                     input = reader.ReadLine();
                     temp.StartingRow = Convert.ToInt32(input.Split(' ')[1]);
@@ -149,12 +151,21 @@ namespace Insanity
         {
             if (!spriteInfo.Animations.ContainsKey(animationName))
                 return false;
+
+            if (currentAnimation.Name == animationName)
+                return true;
+
             currentFrame = 0;
             currentAnimation = spriteInfo.Animations[animationName];
 
             UpdateSource();
 
             return true;
+        }
+
+        public string GetAnimation()
+        {
+            return currentAnimation.Name;
         }
     }
 }
