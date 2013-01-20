@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Insanity.GameStates;
 
 namespace Insanity.Actors
 {
@@ -16,6 +17,8 @@ namespace Insanity.Actors
 
         protected float mHorizontalSpeed;
         protected float mJumpSpeed;
+
+        Vector2[] lastValidPosition = new Vector2[Level.NumInsanityLevels];
 
         public Creature(Vector2 position, Vector2 size, Sprite sprite, IInputAgent controller, float horizontalSpeed = 60, float jumpSpeed = 90)
             : base(position, size, sprite)
@@ -95,8 +98,89 @@ namespace Insanity.Actors
             {
                 Velocity.X *= .95f;
             }
+
+            for (int i = 0; i < Level.NumInsanityLevels; i++)
+            {
+                // If there are no colliding tiles
+                if (OwnerLevel.GetCollidingTiles(new Rectangle((int)Position.X + 2, (int)Position.Y + 2, (int)Size.X - 4, (int)Size.Y - 4), false, i).Count == 0)
+                {
+                    lastValidPosition[i] = Position;
+                }
+            }
+            if ((lastValidPosition[OwnerLevel.InsanityLevel] - Position).Length() > 10f)
+            {
+                FixPosition();
+            }
+
             Velocity.Y += (float)gameTime.ElapsedGameTime.TotalSeconds * GravityRate;
+
             Position += (float)gameTime.ElapsedGameTime.TotalSeconds * Velocity;
+
+        }
+
+        private bool CheckIfRoom(int posX, int posY, int horizontalTiles, int verticalTiles)
+        {
+            for (int x = 0; x < horizontalTiles; x++)
+            {
+                for (int y = 0; y < verticalTiles; y++)
+                {
+                    if (!(OwnerLevel.IsWithinLevel(posX + x, posY + y) && !OwnerLevel.GetTile(posX + x, posY + y).Solid))
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        protected void FixPosition()
+        {
+            int numVerticalTiles = (int)Math.Ceiling((Size.Y) / (float)Tile.Height);
+            int numHorizontalTiles = (int)Math.Ceiling((Size.X) / (float)Tile.Width);
+
+            Queue<Point> positionQueue = new Queue<Point>();
+            List<Point> checkedPositions = new List<Point>();
+
+            Point positionPoint = new Point((int)(Position.X / Tile.Width), (int)(Position.Y / Tile.Height));
+            positionQueue.Enqueue(positionPoint);
+            checkedPositions.Add(positionPoint);
+
+            while (positionQueue.Count > 0)
+            {
+                Point curPosition = positionQueue.Dequeue();
+                if (CheckIfRoom(curPosition.X, curPosition.Y, numHorizontalTiles, numVerticalTiles))
+                {
+                    Position = new Vector2(curPosition.X * Tile.Width, curPosition.Y * Tile.Height);
+                    return;
+                }
+                Point up = new Point(curPosition.X, curPosition.Y - 1);
+                Point down = new Point(curPosition.X, curPosition.Y + 1);
+                Point left = new Point(curPosition.X - 1, curPosition.Y);
+                Point right = new Point(curPosition.X + 1, curPosition.Y);
+
+                if (!checkedPositions.Contains(up))
+                {
+                    positionQueue.Enqueue(up);
+                    checkedPositions.Add(up);
+                }
+                if (!checkedPositions.Contains(down))
+                {
+                    positionQueue.Enqueue(down);
+                    checkedPositions.Add(down);
+                }
+                if (!checkedPositions.Contains(left))
+                {
+                    positionQueue.Enqueue(left);
+                    checkedPositions.Add(left);
+                }
+                if (!checkedPositions.Contains(right))
+                {
+                    positionQueue.Enqueue(right);
+                    checkedPositions.Add(right);
+                }
+            }
+
+            Position = lastValidPosition[OwnerLevel.InsanityLevel];
         }
 
         public override void Update(GameTime gameTime, double insanityLevel)
