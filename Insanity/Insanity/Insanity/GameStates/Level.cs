@@ -12,6 +12,7 @@ namespace Insanity.GameStates
 {
     public class Level : IGamestate
     {
+        public const int NumInsanityLevels = 3;
         public int InsanityLevel;
         public Camera Camera;
 
@@ -103,6 +104,45 @@ namespace Insanity.GameStates
                 }
                 Tiles.Add(tiles);
             }
+        }
+
+        // position in screen coords
+        public int GetTileIndex(Vector2 position)
+        {
+            return (int)(position.X / Tile.Width) + (int)(mNumTilesHorizontal * (position.Y / Tile.Height));
+        }
+
+        // position in screen coords
+        public Tile GetTile(Vector2 position, int insanityLevel = -1)
+        {
+            if (insanityLevel < 0)
+            {
+                insanityLevel = InsanityLevel;
+            }
+
+            return Tiles[insanityLevel][(int)(position.X / Tile.Width) + (int)(mNumTilesHorizontal * (position.Y / Tile.Height))];
+        }
+
+        // position in screen coords
+        public Tile GetTile(int x, int y, int insanityLevel = -1)
+        {
+            if (insanityLevel < 0)
+            {
+                insanityLevel = InsanityLevel;
+            }
+
+            return Tiles[insanityLevel][x + (int)(mNumTilesHorizontal * y)];
+        }
+
+        public bool IsWithinLevel(Vector2 position)
+        {
+            return new Rectangle(0, 0, mNumTilesHorizontal * Tile.Width, mNumTilesVertical * Tile.Height).Contains((int)position.X, (int)position.Y);
+        }
+
+        // tile coordinates
+        public bool IsWithinLevel(int x, int y)
+        {
+            return !(x < 0 || x >= mNumTilesHorizontal || y < 0 || y >= mNumTilesVertical);
         }
 
         public List<Tile> GetCollidingTiles(Rectangle bounds, bool inlcudeNonSolid = false, int insanityLevel = -1)
