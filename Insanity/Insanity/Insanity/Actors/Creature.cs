@@ -23,6 +23,10 @@ namespace Insanity.Actors
         public bool IsFrozen { get; protected set; }
         protected bool wasFrozen;
         protected double freezeTimer;
+
+        public bool onGround;
+        public bool onLeftWall;
+        public bool onRightWall;
         
         Vector2[] lastValidPosition = new Vector2[Level.NumInsanityLevels];
 
@@ -52,7 +56,9 @@ namespace Insanity.Actors
                 return !(collidingLeftTiles.Contains(tile) || collidingRightTiles.Contains(tile));
             }).ToList();
 
-            bool onGround = collidingFootTiles.Count > 0 && Velocity.Y > 0;
+            onGround = collidingFootTiles.Count > 0 && Velocity.Y > 0;
+            onLeftWall = collidingLeftTiles.Count > 0 && Velocity.X < 0;
+            onRightWall = collidingRightTiles.Count > 0 && Velocity.X > 0;
 
             if (onGround)
             {
@@ -103,7 +109,7 @@ namespace Insanity.Actors
                 {
                     Velocity.Y = -mJumpSpeed;
                     Sprite.ChangeAnimation("Jump");
-                } 
+                }
             }
 
             if (onGround)
