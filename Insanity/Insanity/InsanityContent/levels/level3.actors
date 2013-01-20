@@ -1,4 +1,6 @@
 Insanity.Actors.Goal,Insanity 180 180 Victory
 Insanity.Actors.DoctorMonster,Insanity 780 780 
 Insanity.Actors.TrashCan,Insanity 1380 720 
+Insanity.Actors.TextTip,Insanity 60 960 Some Objects look harmless now...
+Insanity.Actors.TextTip,Insanity 960 960 Attack enemies by falling into them
 Insanity.Actors.Player,Insanity 180 780
