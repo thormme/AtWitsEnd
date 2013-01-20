@@ -9,7 +9,7 @@ namespace Insanity.Actors
     public class Goal : Actor
     {
         public Goal(Vector2 position, string nextLevel)
-            : base(position, new Vector2(60,120), new Sprite("spriteSheets/goal"))
+            : base(position, new Vector2(120,180), new Sprite("spriteSheets/goal"))
         {
             NextLevel = nextLevel;
         }

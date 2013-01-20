@@ -1,5 +1,5 @@
-frameWidth: 1 //in blocks
-frameHeight: 2 //in blocks
+frameWidth: 2 //in blocks
+frameHeight: 3 //in blocks
 maxFramesPerRow: 20 
 NumAnimations: 1
 

@@ -174,7 +174,7 @@ namespace Insanity.Actors
                 }
             }
 
-            InsanityLevel += gameTime.ElapsedGameTime.TotalSeconds / 214;
+            InsanityLevel += gameTime.ElapsedGameTime.TotalSeconds / 107;
 
             SanityState newSanity;
 
