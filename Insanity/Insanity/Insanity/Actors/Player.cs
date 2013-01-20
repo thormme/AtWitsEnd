@@ -80,6 +80,7 @@ namespace Insanity.Actors
             {
                 mPhotoTimer = mPhotoViewTime;
                 IsFrozen = true;
+                Sprite.ChangeAnimation("ViewPhoto");
             }
 
             if (mPhotoTimer > 0)

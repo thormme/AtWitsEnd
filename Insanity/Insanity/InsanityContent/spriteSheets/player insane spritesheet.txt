@@ -1,7 +1,21 @@
 frameWidth: 2 //in blocks
 frameHeight: 4 //in blocks
 maxFramesPerRow: 20 
-NumAnimations: 6
+NumAnimations: 8
+
+AnimationName: ViewPhoto2
+NextAnimation: Stand
+AnimationLength: 1 //numColumns
+AnimationSpeed: 500 //in milliseconds
+InitialRow: 2 
+InitialColumn: 2
+
+AnimationName: ViewPhoto
+NextAnimation: ViewPhoto2
+AnimationLength: 1 //numColumns
+AnimationSpeed: 500 //in milliseconds
+InitialRow: 2 
+InitialColumn: 1
 
 AnimationName: Jump
 NextAnimation: Jump2
