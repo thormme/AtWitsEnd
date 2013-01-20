@@ -28,6 +28,8 @@ namespace Insanity.Actors
         public bool onLeftWall;
         public bool onRightWall;
 
+        private int mPreviousInsanity = 0;
+
         public override Level OwnerLevel
         {
             get
@@ -139,10 +141,11 @@ namespace Insanity.Actors
                     lastValidPosition[i] = Position;
                 }
             }
-            if ((lastValidPosition[OwnerLevel.InsanityLevel] - Position).Length() > 10f)
+            if (mPreviousInsanity != OwnerLevel.InsanityLevel && (lastValidPosition[OwnerLevel.InsanityLevel] - Position).Length() > 10f)
             {
                 FixPosition();
             }
+            mPreviousInsanity = OwnerLevel.InsanityLevel;
 
             Velocity.Y += (float)gameTime.ElapsedGameTime.TotalSeconds * GravityRate;
 

@@ -36,9 +36,9 @@ namespace Insanity.GameStates
         List<Actor> mActorsToRemove = new List<Actor>();
         List<Actor> mActorsToAdd = new List<Actor>();
 
-        private Tile CreateTileFromColor(Color color, int x, int y, int index)
+        private Tile CreateTileFromColor(Color color, int x, int y, string assetName)
         {
-            Sprite sprite = new Sprite("tiles/hospital sane spritesheet");
+            Sprite sprite = new Sprite(assetName);
 
             int blockRow    = (int)color.R;
             int blockColumn = (int)color.G;
@@ -87,8 +87,16 @@ namespace Insanity.GameStates
 
             Tiles = new List<List<Tile>>();
 
+            string[] tileSpriteNames = new string[]
+            {
+                "tiles/hospital sane spritesheet",
+                "tiles/hospital midsane spritesheet",
+                "tiles/hospital insane spritesheet"
+            };
+
             for (int i = 0; i < 3; i++)
             {
+
                 Texture2D levelData = InsanityGame.GameTextures["levels/" + levelName + "_" + i];
 
                 if (i == 0)
@@ -110,7 +118,7 @@ namespace Insanity.GameStates
                 int index = 0;
                 foreach (Color color in retrievedColors)
                 {
-                    tiles.Add(CreateTileFromColor(color, Tile.Width * (index % mNumTilesHorizontal), Tile.Height * (int)(index / mNumTilesHorizontal), index));
+                    tiles.Add(CreateTileFromColor(color, Tile.Width * (index % mNumTilesHorizontal), Tile.Height * (int)(index / mNumTilesHorizontal), tileSpriteNames[i]));
                     index++;
                 }
                 Tiles.Add(tiles);
