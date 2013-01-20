@@ -43,9 +43,49 @@ namespace Insanity.Actors
             {
                 InsanityGame.GamestateManager.Push(new PauseState());
             }
-            if ((mController as InputHandler).TakePill())
+            if ((mController as InputHandler).TakePill() && CurrentPills > 0)
             {
-                OwnerLevel.InsanityLevel++;
+                CurrentPills--;
+                if (InsanityLevel < humanEnemyThreshold)
+                {
+                    InsanityLevel = 0;
+                }
+                else if (InsanityLevel < ghastlyEnemyThreshold)
+                {
+                    InsanityLevel = inanimateEnemyThreshold;
+                }
+                else
+                {
+                    InsanityLevel = humanEnemyThreshold;
+                }
+            }
+            InsanityLevel += gameTime.ElapsedGameTime.TotalSeconds / 214;
+            Console.WriteLine(InsanityLevel);
+            if (InsanityLevel < inanimateEnemyThreshold)
+            {
+                OwnerLevel.InsanityLevel = 0;
+            } 
+            else if (InsanityLevel < humanEnemyThreshold)
+            {
+                OwnerLevel.InsanityLevel = 1;
+            }
+            else if (InsanityLevel < ghastlyEnemyThreshold)
+            {
+                OwnerLevel.InsanityLevel = 1;
+            }
+            else
+            {
+                OwnerLevel.InsanityLevel = 2;
+            }
+
+            var pills = OwnerLevel.Actors.Where((actor) => { 
+                return actor is Pill && IsTouching(actor); 
+            });
+
+            foreach (Pill pill in pills)
+            {
+                CurrentPills++;
+                OwnerLevel.RemoveActor(pill);
             }
         }
 
