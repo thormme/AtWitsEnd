@@ -1,5 +1,2 @@
-Insanity.Actors.Player,Insanity 100 100
-Insanity.Actors.Pill,Insanity 100 20
-Insanity.Actors.DoctorMonster,Insanity 200 100
-Insanity.Actors.TrashCan,Insanity 300 100
-Insanity.Actors.Goal,Insanity 2000 100 level1
+Insanity.Actors.Goal,Insanity 1020 240 level1
+Insanity.Actors.Player,Insanity 120 240 

@@ -13,6 +13,7 @@
 </form>
 <input type="checkbox" id="solid">solid
 <input type="checkbox" id="actor">actor
+<input type="checkbox" id="align">align
 <input type="text" id="type">type
 <input type="text" id="parameters">parameters
 <textarea id="actorsText"></textarea>
@@ -68,6 +69,10 @@ function mouseClick(e) {
 		smallContext.putImageData( idSmall, xTile, yTile ); 
 	} else {
 		if (actorsText.value != "") actorsText.value += "\n";
+		if (document.getElementById("align").checked) {
+			x = Math.floor(x / 60) * 60;
+			y = Math.floor(y / 60) * 60;
+		}
 		actorsText.value += document.getElementById("type").value + " " + x + " " + y + " " + document.getElementById("parameters").value;
 	}
 }
