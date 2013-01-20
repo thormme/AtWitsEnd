@@ -16,7 +16,6 @@ namespace Insanity.Actors
         protected float mHorizontalSpeed;
         protected float mJumpSpeed;
 
-<<<<<<< HEAD
         Vector2[] lastValidPosition = new Vector2[Level.NumInsanityLevels];
 
         public Creature(Vector2 position, Vector2 size, Sprite sprite, IInputAgent controller, float horizontalSpeed = 60, float jumpSpeed = 90)
