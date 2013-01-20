@@ -11,8 +11,8 @@ namespace Insanity.Actors
         protected double visibleSanityLevel;
         protected double harmfulSanityLevel;
 
-        public Enemy(Vector2 position, Vector2 size, Sprite sprite, double visSanLevel = 0, double harmSanLevel = 0)
-            : base(position, size, sprite, new InputHandler())
+        public Enemy(Vector2 position, Vector2 size, Sprite sprite, IController inputBot, double visSanLevel = 0, double harmSanLevel = 0)
+            : base(position, size, sprite, inputBot)
         {
             visibleSanityLevel = visSanLevel;
             harmfulSanityLevel = harmSanLevel;
