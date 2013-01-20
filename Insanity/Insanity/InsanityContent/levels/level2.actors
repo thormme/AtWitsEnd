@@ -1,0 +1,7 @@
+Insanity.Actors.Player 660 600
+Insanity.Actors.Goal 2280 2280 level3
+Insanity.Actors.Pill 900 2340 
+Insanity.Actors.Pill 1260 2340 
+Insanity.Actors.Pill 1500 2340 
+Insanity.Actors.TextTip 660 2520 Medication can sometimes grant clarity.
+Insanity.Actors.TextTip 770 2640 Press c to take a pill.
