@@ -114,6 +114,7 @@
     <Compile Include="Actors\InputBots\DoctorInput.cs" />
     <Compile Include="Actors\InputBots\TrashInput.cs" />
     <Compile Include="Actors\Pill.cs" />
+    <Compile Include="Actors\TextTip.cs" />
     <Compile Include="Actors\TrashCan.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="Button.cs" />
