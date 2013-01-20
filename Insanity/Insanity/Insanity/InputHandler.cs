@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
+using Insanity.Actors;
+using Insanity.GameStates;
 
 namespace Insanity
 {
@@ -21,7 +23,7 @@ namespace Insanity
             return CurrentKeyboardState.IsKeyDown(Keys.Escape);
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, Actor agent = null)
         {
             OldKeyboardState = CurrentKeyboardState;
             CurrentKeyboardState = Keyboard.GetState();
@@ -68,6 +70,17 @@ namespace Insanity
         public bool TakePill()
         {
             return CurrentKeyboardState.IsKeyDown(Keys.Space) && !OldKeyboardState.IsKeyDown(Keys.Space);
+        }
+
+        public bool ViewPhoto()
+        {
+            return CurrentKeyboardState.IsKeyDown(Keys.LeftControl) && !OldKeyboardState.IsKeyDown(Keys.LeftControl);
+        }
+
+        protected Level LevelRef;
+        public void GiveLevel(Level level)
+        {
+            LevelRef = level;
         }
     }
 }

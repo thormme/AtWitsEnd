@@ -12,8 +12,8 @@ namespace Insanity.GameStates
         public MainMenu()
             : base()
         {
-            TitleText = "Main Menu";
-            TitlePosition = new Vector2(400, 100);
+            TitleText = "Insanity";
+            TitlePosition = new Vector2(InsanityGame.ScreenWidth / 2, InsanityGame.ScreenHeight / 4);
         }
 
         public void PlayFunc()
@@ -31,8 +31,8 @@ namespace Insanity.GameStates
         {
             var menuButtons = new List<Button>();
 
-            var playButton = new Button("Button", "Play Game", new Rectangle(300, 200, 120, 60), PlayFunc);
-            var quitButton = new Button("Button", "Quit", new Rectangle(300, 300, 120, 60), QuitFunc);
+            var playButton = new Button("Button", "Play Game", new Rectangle(InsanityGame.ScreenWidth / 2 - 60, InsanityGame.ScreenHeight * 3 / 8, 120, 60), PlayFunc);
+            var quitButton = new Button("Button", "Quit", new Rectangle(InsanityGame.ScreenWidth / 2 - 60, InsanityGame.ScreenHeight * 5 / 8, 120, 60), QuitFunc);
 
             menuButtons.Add(playButton);
             menuButtons.Add(quitButton);

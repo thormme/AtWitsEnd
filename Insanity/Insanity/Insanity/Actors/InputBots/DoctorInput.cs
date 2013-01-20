@@ -3,23 +3,47 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Insanity.GameStates;
 
 namespace Insanity.Actors.InputBots
 {
     public class DoctorInput : IInputAgent
     {
-        public void Update(GameTime gameTime)
+        protected bool movingRight;
+
+        protected Level LevelRef;
+
+        public void GiveLevel(Level level)
         {
+            LevelRef = level;
+        }
+
+        public DoctorInput()
+        {
+            movingRight = true;
+        }
+
+        public void Update(GameTime gameTime, Actor agent)
+        {
+            var doctor = agent as DoctorMonster;
+
+            if ((movingRight && doctor.onRightWall) || (!movingRight && doctor.onLeftWall))
+                switchDirection();
+        }
+
+        private void switchDirection()
+        {
+            movingRight = !movingRight;
         }
 
         public bool MoveRight()
         {
-            return false;
+            return movingRight;
         }
 
         public bool MoveLeft()
         {
-            return false;
+            return !MoveRight();
         }
 
         public bool Jump()

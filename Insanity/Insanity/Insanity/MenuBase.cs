@@ -75,7 +75,7 @@ namespace Insanity
 
 
             Vector2 fontOrigin = InsanityGame.GameFonts["fonts/TitleFont"].MeasureString(TitleText) / 2;
-            spriteBatch.DrawString(InsanityGame.GameFonts["fonts/TitleFont"], TitleText, TitlePosition, Color.Crimson, 0, fontOrigin, 1, SpriteEffects.None, 0);
+            spriteBatch.DrawString(InsanityGame.GameFonts["fonts/TitleFont"], TitleText, TitlePosition, Color.White, 0, fontOrigin, 1, SpriteEffects.None, 0);
 
             spriteBatch.End();
         }

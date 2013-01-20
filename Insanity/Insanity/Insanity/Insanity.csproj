@@ -111,7 +111,9 @@
     <Compile Include="Actors\Creature.cs" />
     <Compile Include="Actors\DoctorMonster.cs" />
     <Compile Include="Actors\InputBots\DoctorInput.cs" />
+    <Compile Include="Actors\InputBots\TrashInput.cs" />
     <Compile Include="Actors\Pill.cs" />
+    <Compile Include="Actors\TrashCan.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="Button.cs" />
     <Compile Include="Actors\Enemy.cs" />

@@ -22,7 +22,7 @@ namespace Insanity.Actors
         protected Sprite saneSprite;
         protected Sprite midsaneSprite;
         protected Sprite insaneSprite;
-
+        
         protected enum SanityState
         {
             Sane, Midsane, Insane
@@ -34,9 +34,13 @@ namespace Insanity.Actors
         public double InsanityLevel { get; protected set; }
         public int CurrentPills { get; protected set; }
 
+        private const double mPhotoViewTime = 1;
+        private double mPhotoTimer = -1;
+
+        public bool IsAttacking { get { return Sprite.GetAnimation().Equals("Fall"); } }
 
         public Player(Vector2 position)
-            : base(position, new Vector2(60, 240), new Sprite("spriteSheets/player sane spritesheet"), new InputHandler(), 300, 300)
+            : base(position, new Vector2(40, 180), new Sprite("spriteSheets/player sane spritesheet"), new InputHandler(), 300, 400)
         {
             currentSanity = SanityState.Sane;
             saneSprite = Sprite;
@@ -61,11 +65,41 @@ namespace Insanity.Actors
         public override void Update(GameTime gameTime, double insanityLevel)
         {
             base.Update(gameTime, insanityLevel);
-            OwnerLevel.Camera.Position += (Position + Size/2f - (OwnerLevel.Camera.Position + new Vector2(OwnerLevel.ScreenWidth, OwnerLevel.ScreenHeight)/2)) * (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            OwnerLevel.Camera.Position += (Position + Size/2f - (OwnerLevel.Camera.Position + new Vector2(OwnerLevel.ScreenWidth, OwnerLevel.ScreenHeight)/2)) * (float)gameTime.ElapsedGameTime.TotalSeconds * 4;
+
             if ((mController as InputHandler).Pause())
             {
                 InsanityGame.GamestateManager.Push(new PauseState());
             }
+
+            if ((mController as InputHandler).ViewPhoto() && !IsFrozen)
+            {
+                mPhotoTimer = mPhotoViewTime;
+                IsFrozen = true;
+            }
+
+            if (mPhotoTimer > 0)
+            {
+                mPhotoTimer -= gameTime.ElapsedGameTime.TotalSeconds;
+                if (mPhotoTimer <= 0)
+                {
+                    if (InsanityLevel < inanimateEnemyThreshold)
+                    {
+                        InsanityLevel = inanimateEnemyThreshold;
+                    }
+                    else if (InsanityLevel < humanEnemyThreshold)
+                    {
+                        InsanityLevel = humanEnemyThreshold;
+                    }
+                    else if (InsanityLevel < ghastlyEnemyThreshold)
+                    {
+                        InsanityLevel = ghastlyEnemyThreshold;
+                    }
+                    //IsFrozen = false;
+                }
+            }
+
             if ((mController as InputHandler).TakePill() && CurrentPills > 0)
             {
                 CurrentPills--;
@@ -82,6 +116,55 @@ namespace Insanity.Actors
                     InsanityLevel = humanEnemyThreshold;
                 }
             }
+
+            var pills = OwnerLevel.Actors.Where((actor) => { 
+                return actor is Pill && IsTouching(actor); 
+            });
+
+            foreach (Pill pill in pills)
+            {
+                CurrentPills++;
+                OwnerLevel.RemoveActor(pill);
+            }
+
+            var enemies = OwnerLevel.Actors.Where((actor) =>
+            {
+                return actor is Enemy && IsTouching(actor);
+            });
+
+            foreach (var enemy in enemies)
+            {
+                var Enemy = enemy as Enemy;
+                if (Enemy.IsHarmful(InsanityLevel))
+                {
+                    if (IsAttacking)
+                        OwnerLevel.RemoveActor(enemy);
+                    else if (!IsFrozen)
+                    {
+                        InsanityLevel += .02;
+                        IsFrozen = true;
+
+                        Rectangle enemyBounds = new Rectangle((int)enemy.Position.X, (int)enemy.Position.Y, (int)enemy.Size.X, (int)enemy.Size.Y); 
+                        
+                        int feetHeight = 10;
+                        int sideWidth = 10;
+                        Rectangle leftSide = new Rectangle((int)Position.X, (int)Position.Y + feetHeight, (int)sideWidth, (int)Size.Y - feetHeight * 2);
+                        Rectangle rightSide = new Rectangle((int)Position.X + (int)Size.X - sideWidth, (int)Position.Y + feetHeight, (int)sideWidth, (int)Size.Y - feetHeight * 2);
+
+                        if (enemyBounds.Intersects(leftSide))
+                        {
+                            //bounce right
+                            Velocity.X = 100;
+                        }
+                        else if (enemyBounds.Intersects(rightSide))
+                        {
+                            //bounce left
+                            Velocity.X = -100;
+                        }            
+                    } 
+                }
+            }
+
             InsanityLevel += gameTime.ElapsedGameTime.TotalSeconds / 214;
 
             SanityState newSanity;
@@ -112,16 +195,6 @@ namespace Insanity.Actors
                 ChangeSprite(newSanity);
             }
             currentSanity = newSanity;
-
-            var pills = OwnerLevel.Actors.Where((actor) => { 
-                return actor is Pill && IsTouching(actor); 
-            });
-
-            foreach (Pill pill in pills)
-            {
-                CurrentPills++;
-                OwnerLevel.RemoveActor(pill);
-            }
 
             hud.Update(gameTime, this);
         }

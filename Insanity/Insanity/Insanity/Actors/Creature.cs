@@ -10,6 +10,8 @@ namespace Insanity.Actors
 {
     public class Creature : Actor
     {
+        protected const double freezeTime = 1000; //milliseconds
+        
         static int GravityRate = 300;
 
         public Vector2 Velocity = new Vector2();
@@ -18,6 +20,27 @@ namespace Insanity.Actors
         protected float mHorizontalSpeed;
         protected float mJumpSpeed;
 
+        public bool IsFrozen { get; protected set; }
+        protected bool wasFrozen;
+        protected double freezeTimer;
+
+        public bool onGround;
+        public bool onLeftWall;
+        public bool onRightWall;
+
+        public override Level OwnerLevel
+        {
+            get
+            {
+                return base.OwnerLevel;
+            }
+            set
+            {
+                base.OwnerLevel = value;
+                mController.GiveLevel(value);
+            }
+        }
+        
         Vector2[] lastValidPosition = new Vector2[Level.NumInsanityLevels];
 
         public Creature(Vector2 position, Vector2 size, Sprite sprite, IInputAgent controller, float horizontalSpeed = 60, float jumpSpeed = 90)
@@ -26,24 +49,30 @@ namespace Insanity.Actors
             mController = controller;
             mHorizontalSpeed = horizontalSpeed;
             mJumpSpeed = jumpSpeed;
+
+            IsFrozen = false;
+            wasFrozen = false;
         }
 
         public virtual void Move(GameTime gameTime)
         {
             int feetHeight = 10;
             int sideWidth = 10;
+            int inset = 6;
             List<Tile> collidingLeftTiles = OwnerLevel.GetCollidingTiles(new Rectangle((int)Position.X, (int)Position.Y + feetHeight, (int)sideWidth, (int)Size.Y - feetHeight * 2), false);
             List<Tile> collidingRightTiles = OwnerLevel.GetCollidingTiles(new Rectangle((int)Position.X + (int)Size.X - sideWidth, (int)Position.Y + feetHeight, (int)sideWidth, (int)Size.Y - feetHeight * 2), false);
-            List<Tile> collidingFootTiles = OwnerLevel.GetCollidingTiles(new Rectangle((int)Position.X + 2, (int)Position.Y + (int)Size.Y - feetHeight, (int)Size.X - 4, feetHeight), false).Where((tile) => 
+            List<Tile> collidingFootTiles = OwnerLevel.GetCollidingTiles(new Rectangle((int)Position.X + inset, (int)Position.Y + (int)Size.Y - feetHeight, (int)Size.X - inset * 2, feetHeight), false).Where((tile) => 
             {
                 return !(collidingLeftTiles.Contains(tile) || collidingRightTiles.Contains(tile));
             }).ToList();
-            List<Tile> collidingHeadTiles = OwnerLevel.GetCollidingTiles(new Rectangle((int)Position.X + 2, (int)Position.Y, (int)Size.X - 4, feetHeight), false).Where((tile) =>
+            List<Tile> collidingHeadTiles = OwnerLevel.GetCollidingTiles(new Rectangle((int)Position.X + inset, (int)Position.Y, (int)Size.X - inset * 2, feetHeight), false).Where((tile) =>
             {
                 return !(collidingLeftTiles.Contains(tile) || collidingRightTiles.Contains(tile));
             }).ToList();
 
-            bool onGround = collidingFootTiles.Count > 0 && Velocity.Y > 0;
+            onGround = collidingFootTiles.Count > 0 && Velocity.Y > 0;
+            onLeftWall = collidingLeftTiles.Count > 0 && Velocity.X < 0;
+            onRightWall = collidingRightTiles.Count > 0 && Velocity.X > 0;
 
             if (onGround)
             {
@@ -66,32 +95,35 @@ namespace Insanity.Actors
                 Position.X = collidingRightTiles[0].X - Size.X;
             }
 
-            if (mController.MoveLeft())
+            if (!IsFrozen)
             {
-                Velocity.X = -mHorizontalSpeed;
-                facingLeft = true;
-                if (onGround)
+                if (mController.MoveLeft())
                 {
-                    Sprite.ChangeAnimation("Walk");
+                    Velocity.X = -mHorizontalSpeed;
+                    facingLeft = true;
+                    if (onGround)
+                    {
+                        Sprite.ChangeAnimation("Walk");
+                    }
                 }
-            }
-            if (mController.MoveRight())
-            {
-                Velocity.X = mHorizontalSpeed;
-                facingLeft = false;
-                if (onGround)
+                if (mController.MoveRight())
                 {
-                    Sprite.ChangeAnimation("Walk");
+                    Velocity.X = mHorizontalSpeed;
+                    facingLeft = false;
+                    if (onGround)
+                    {
+                        Sprite.ChangeAnimation("Walk");
+                    }
                 }
-            }
-            if (!(mController.MoveRight() || mController.MoveLeft()) && onGround)
-            {
-                Sprite.ChangeAnimation("Stand");
-            }
-            if (mController.Jump() && onGround)
-            {
-                Velocity.Y = -mJumpSpeed;
-                Sprite.ChangeAnimation("Jump");
+                if (!(mController.MoveRight() || mController.MoveLeft()) && onGround)
+                {
+                    Sprite.ChangeAnimation("Stand");
+                }
+                if (mController.Jump() && onGround)
+                {
+                    Velocity.Y = -mJumpSpeed;
+                    Sprite.ChangeAnimation("Jump");
+                }
             }
 
             if (onGround)
@@ -153,30 +185,21 @@ namespace Insanity.Actors
                     Position = new Vector2(curPosition.X * Tile.Width, curPosition.Y * Tile.Height);
                     return;
                 }
-                Point up = new Point(curPosition.X, curPosition.Y - 1);
-                Point down = new Point(curPosition.X, curPosition.Y + 1);
-                Point left = new Point(curPosition.X - 1, curPosition.Y);
-                Point right = new Point(curPosition.X + 1, curPosition.Y);
+                Point[] newPoints = new Point[]
+                {
+                    new Point(curPosition.X, curPosition.Y - 1),
+                    new Point(curPosition.X, curPosition.Y + 1),
+                    new Point(curPosition.X - 1, curPosition.Y),
+                    new Point(curPosition.X + 1, curPosition.Y)
+                };
 
-                if (!checkedPositions.Contains(up))
+                foreach (Point point in newPoints)
                 {
-                    positionQueue.Enqueue(up);
-                    checkedPositions.Add(up);
-                }
-                if (!checkedPositions.Contains(down))
-                {
-                    positionQueue.Enqueue(down);
-                    checkedPositions.Add(down);
-                }
-                if (!checkedPositions.Contains(left))
-                {
-                    positionQueue.Enqueue(left);
-                    checkedPositions.Add(left);
-                }
-                if (!checkedPositions.Contains(right))
-                {
-                    positionQueue.Enqueue(right);
-                    checkedPositions.Add(right);
+                    if (Math.Abs(positionPoint.X - point.X) < 3 && Math.Abs(positionPoint.Y - point.Y) < 3 && !checkedPositions.Contains(point))
+                    {
+                        positionQueue.Enqueue(point);
+                        checkedPositions.Add(point);
+                    }
                 }
             }
 
@@ -186,7 +209,24 @@ namespace Insanity.Actors
         public override void Update(GameTime gameTime, double insanityLevel)
         {
             base.Update(gameTime, insanityLevel);
-            mController.Update(gameTime);
+
+            if (IsFrozen && !wasFrozen)
+            {
+                wasFrozen = true;
+                freezeTimer = 0;
+            }
+            else if (IsFrozen)
+            {
+                freezeTimer += gameTime.ElapsedGameTime.TotalMilliseconds;
+
+                if (freezeTimer > freezeTime)
+                {
+                    IsFrozen = false;
+                    wasFrozen = false; 
+                }
+            }
+
+            mController.Update(gameTime, this);
             Move(gameTime);
         }
 
