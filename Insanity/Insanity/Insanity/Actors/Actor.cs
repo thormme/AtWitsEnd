@@ -28,8 +28,8 @@ namespace Insanity.Actors
         public virtual void Draw(Camera camera, SpriteBatch spriteBatch, GameTime gameTime)
         {
             Sprite.Draw(gameTime, spriteBatch, new Rectangle(
-                (int)Position.X + (int)camera.Position.X,
-                (int)Position.Y + (int)camera.Position.Y,
+                (int)Position.X - (int)camera.Position.X,
+                (int)Position.Y - (int)camera.Position.Y,
                 (int)Size.X,
                 (int)Size.Y),
                 facingLeft);

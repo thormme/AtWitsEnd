@@ -18,6 +18,9 @@ namespace Insanity.GameStates
         int mNumTilesHorizontal;
         int mNumTilesVertical;
 
+        public int ScreenWidth;
+        public int ScreenHeight;
+
         // Access Tiles[insanity][tileIndex]
         public List<List<Tile>> Tiles;
         public List<Actor> Actors;
@@ -26,6 +29,9 @@ namespace Insanity.GameStates
 
         GraphicsDeviceManager mGraphics;
         SpriteBatch mSpriteBatch;
+
+        List<Actor> mActorsToRemove = new List<Actor>();
+        List<Actor> mActorsToAdd = new List<Actor>();
 
         private Tile CreateTileFromColor(Color color, int x, int y, int index)
         {
@@ -125,25 +131,52 @@ namespace Insanity.GameStates
             return tiles;
         }
 
+        public void AddActor(Actor actor)
+        {
+            mActorsToAdd.Add(actor);
+        }
+
+        public void RemoveActor(Actor actor)
+        {
+            mActorsToRemove.Add(actor);
+        }
+
+        private void CommitActorChanges()
+        {
+            foreach (Actor actor in mActorsToAdd)
+            {
+                Actors.Add(actor);
+                actor.OwnerLevel = this;
+            }
+            foreach (Actor actor in mActorsToRemove)
+            {
+                Actors.Remove(actor);
+                actor.OwnerLevel = null;
+            }
+        }
+
         public void Update(GameTime gameTime)
         {
             foreach (Actor actor in Actors)
             {
                 actor.Update(gameTime);
             }
+            CommitActorChanges();
         }
 
         public void Draw(GameTime gameTime)
         {
             mSpriteBatch.Begin();
-            
-            int startTileIndex = (int)(Camera.Position.X / Tile.Width) + (int)(mNumTilesHorizontal * (Camera.Position.Y / Tile.Height));
-            for (int y = 0; y < mGraphics.PreferredBackBufferHeight / Tile.Height + 1; y++)
+
+            int startTileIndex = (int)(Camera.Position.X / Tile.Width) + (int)(mNumTilesHorizontal * (int)(Camera.Position.Y / Tile.Height));
+            int numVerticalTiles = (int)((Camera.Position.Y + ScreenHeight) / Tile.Height) - (int)(Camera.Position.Y / Tile.Height) + 1;
+            int numHorizontalTiles = (int)((Camera.Position.X + ScreenWidth) / Tile.Width) - (int)(Camera.Position.X / Tile.Width) + 1;
+            for (int y = 0; y < numVerticalTiles; y++)
             {
                 int curTileIndex = startTileIndex + mNumTilesHorizontal * y;
-                for (int x = 0; x < mGraphics.PreferredBackBufferWidth / Tile.Width + 1; x++)
+                for (int x = 0; x < numHorizontalTiles; x++)
                 {
-                    if (curTileIndex >= 0)
+                    if (curTileIndex >= 0 && curTileIndex < Tiles[InsanityLevel].Count)
                     {
                         Tiles[InsanityLevel][curTileIndex].Draw(Camera, mSpriteBatch, gameTime);
                     }
@@ -164,6 +197,9 @@ namespace Insanity.GameStates
         {
             mGraphics = graphics;
             mSpriteBatch = new SpriteBatch(mGraphics.GraphicsDevice);
+
+            ScreenWidth = mGraphics.PreferredBackBufferWidth;
+            ScreenHeight = mGraphics.PreferredBackBufferHeight;
         }
 
         public void LoadContent()
