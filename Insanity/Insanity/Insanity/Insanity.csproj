@@ -109,6 +109,7 @@
   <ItemGroup>
     <Compile Include="Actors\Actor.cs" />
     <Compile Include="Actors\Creature.cs" />
+    <Compile Include="Actors\DeathArea.cs" />
     <Compile Include="Actors\DoctorMonster.cs" />
     <Compile Include="Actors\Goal.cs" />
     <Compile Include="Actors\InputBots\DoctorInput.cs" />

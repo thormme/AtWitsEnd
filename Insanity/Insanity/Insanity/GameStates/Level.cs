@@ -123,6 +123,7 @@ namespace Insanity.GameStates
                 }
                 Tiles.Add(tiles);
             }
+            Loaded = true;
         }
 
         // position in screen coords
@@ -304,7 +305,6 @@ namespace Insanity.GameStates
 
         public void LoadContent()
         {
-            Loaded = true;
         }
 
         public void UnloadContent()

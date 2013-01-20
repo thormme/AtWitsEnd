@@ -120,6 +120,11 @@ namespace Insanity.Actors
                 }
             }
 
+            if (OwnerLevel.Actors.Any((actor) => { return actor is DeathArea && IsTouching(actor); }))
+            {
+                InsanityLevel = Player.deadlyInsane;
+            }
+
             var pills = OwnerLevel.Actors.Where((actor) =>
             {
                 return actor is Pill && IsTouching(actor);

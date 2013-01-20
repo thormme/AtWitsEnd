@@ -4,3 +4,4 @@ Insanity.Actors.DoctorMonster,Insanity 200 100
 Insanity.Actors.TrashCan,Insanity 300 100
 Insanity.Actors.Goal,Insanity 2000 100 level1
 Insanity.Actors.TextTip,Insanity 2000 100 Hello, World!
+Insanity.Actors.DeathArea,Insanity 2000 300 3 3
