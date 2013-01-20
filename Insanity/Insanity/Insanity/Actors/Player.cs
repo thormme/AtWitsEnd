@@ -34,6 +34,9 @@ namespace Insanity.Actors
         public double InsanityLevel { get; protected set; }
         public int CurrentPills { get; protected set; }
 
+        private const double mPhotoViewTime = 1;
+        private double mPhotoTimer = -1;
+
         public bool IsAttacking { get { return Sprite.GetAnimation().Equals("Fall"); } }
 
         public Player(Vector2 position)
@@ -63,12 +66,40 @@ namespace Insanity.Actors
         {
             base.Update(gameTime, insanityLevel);
 
-            OwnerLevel.Camera.Position += (Position + Size/2f - (OwnerLevel.Camera.Position + new Vector2(OwnerLevel.ScreenWidth, OwnerLevel.ScreenHeight)/2)) * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            OwnerLevel.Camera.Position += (Position + Size/2f - (OwnerLevel.Camera.Position + new Vector2(OwnerLevel.ScreenWidth, OwnerLevel.ScreenHeight)/2)) * (float)gameTime.ElapsedGameTime.TotalSeconds * 4;
 
             if ((mController as InputHandler).Pause())
             {
                 InsanityGame.GamestateManager.Push(new PauseState());
             }
+
+            if ((mController as InputHandler).ViewPhoto() && !IsFrozen)
+            {
+                mPhotoTimer = mPhotoViewTime;
+                IsFrozen = true;
+            }
+
+            if (mPhotoTimer > 0)
+            {
+                mPhotoTimer -= gameTime.ElapsedGameTime.TotalSeconds;
+                if (mPhotoTimer <= 0)
+                {
+                    if (InsanityLevel < inanimateEnemyThreshold)
+                    {
+                        InsanityLevel = inanimateEnemyThreshold;
+                    }
+                    else if (InsanityLevel < humanEnemyThreshold)
+                    {
+                        InsanityLevel = humanEnemyThreshold;
+                    }
+                    else if (InsanityLevel < ghastlyEnemyThreshold)
+                    {
+                        InsanityLevel = ghastlyEnemyThreshold;
+                    }
+                    //IsFrozen = false;
+                }
+            }
+
             if ((mController as InputHandler).TakePill() && CurrentPills > 0)
             {
                 CurrentPills--;
