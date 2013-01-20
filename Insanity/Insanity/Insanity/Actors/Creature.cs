@@ -10,6 +10,8 @@ namespace Insanity.Actors
 {
     public class Creature : Actor
     {
+        static int GravityRate = 300;
+
         public Vector2 Velocity = new Vector2();
         protected IInputAgent mController;
 
@@ -110,7 +112,8 @@ namespace Insanity.Actors
                 FixPosition();
             }
 
-            Velocity.Y += (float)gameTime.ElapsedGameTime.TotalSeconds * 40;
+            Velocity.Y += (float)gameTime.ElapsedGameTime.TotalSeconds * GravityRate;
+
             Position += (float)gameTime.ElapsedGameTime.TotalSeconds * Velocity;
 
         }
