@@ -1,2 +1,5 @@
-Insanity.Actors.Player 149 580 
-Insanity.Actors.Goal 2485 684 Victory
+Insanity.Actors.Goal 3720 60 Victory
+Insanity.Actors.TextTip 1560 780 Press Control To look at a dear picture
+Insanity.Actors.TextTip 2580 420 Look for pitfalls
+Insanity.Actors.DeathArea 2760 720 4 3
+Insanity.Actors.Player 120 600 
