@@ -11,7 +11,7 @@ namespace Insanity.GameStates
         public DeadState()
             : base()
         {
-            TitleText = "Game Over\n    Retry?";
+            TitleText = "You have become completely insane!\n\n                         Retry?";
             TitlePosition = new Vector2(InsanityGame.ScreenWidth / 2, InsanityGame.ScreenHeight / 4);
         }
 
