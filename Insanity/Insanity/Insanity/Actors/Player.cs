@@ -39,6 +39,9 @@ namespace Insanity.Actors
 
         public bool IsAttacking { get { return Sprite.GetAnimation().Equals("Fall"); } }
 
+        public bool IsFinished { get; protected set; }
+        public bool IsDead { get { return InsanityLevel >= Player.deadlyInsane; } protected set { } }
+
         public Player(Vector2 position)
             : base(position, new Vector2(60, 240), new Sprite("spriteSheets/player sane spritesheet"), new InputHandler(), 300, 300)
         {
@@ -117,8 +120,9 @@ namespace Insanity.Actors
                 }
             }
 
-            var pills = OwnerLevel.Actors.Where((actor) => { 
-                return actor is Pill && IsTouching(actor); 
+            var pills = OwnerLevel.Actors.Where((actor) =>
+            {
+                return actor is Pill && IsTouching(actor);
             });
 
             foreach (Pill pill in pills)
@@ -126,7 +130,7 @@ namespace Insanity.Actors
                 CurrentPills++;
                 OwnerLevel.RemoveActor(pill);
             }
-
+            
             var enemies = OwnerLevel.Actors.Where((actor) =>
             {
                 return actor is Enemy && IsTouching(actor);
@@ -197,6 +201,8 @@ namespace Insanity.Actors
             currentSanity = newSanity;
 
             hud.Update(gameTime, this);
+
+            IsFinished = OwnerLevel.Actors.Any((actor) => { return actor is Goal && IsTouching(actor); });
         }
 
         private void ChangeSprite(SanityState newSanity)

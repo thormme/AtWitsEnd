@@ -12,7 +12,7 @@ namespace Insanity.GameStates
         public MainMenu()
             : base()
         {
-            TitleText = "Insanity";
+            TitleText = "At Wit's End";
             TitlePosition = new Vector2(InsanityGame.ScreenWidth / 2, InsanityGame.ScreenHeight / 4);
         }
 
