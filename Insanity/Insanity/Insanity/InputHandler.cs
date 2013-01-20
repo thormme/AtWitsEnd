@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework;
 
 namespace Insanity
 {
-    public class InputHandler
+    public class InputHandler : IController
     {
         KeyboardState CurrentKeyboardState;
         KeyboardState OldKeyboardState;
@@ -20,7 +21,7 @@ namespace Insanity
             return CurrentKeyboardState.IsKeyDown(Keys.Escape);
         }
 
-        public void Update()
+        public void Update(GameTime gameTime)
         {
             OldKeyboardState = CurrentKeyboardState;
             CurrentKeyboardState = Keyboard.GetState();
@@ -28,27 +29,30 @@ namespace Insanity
 
         public bool MoveRight()
         {
-            return CurrentKeyboardState.IsKeyDown(Keys.D);
+            return CurrentKeyboardState.IsKeyDown(Keys.D) || CurrentKeyboardState.IsKeyDown(Keys.Right);
         }
 
         public bool MoveLeft()
         {
-            return CurrentKeyboardState.IsKeyDown(Keys.A);
+            return CurrentKeyboardState.IsKeyDown(Keys.A) || CurrentKeyboardState.IsKeyDown(Keys.Left);
         }
 
         public bool Jump()
         {
-            return CurrentKeyboardState.IsKeyDown(Keys.W) && !OldKeyboardState.IsKeyDown(Keys.W);
+            return (CurrentKeyboardState.IsKeyDown(Keys.W) && !OldKeyboardState.IsKeyDown(Keys.W)) ||
+                   (CurrentKeyboardState.IsKeyDown(Keys.Up) && !OldKeyboardState.IsKeyDown(Keys.Up));
         }
 
         public bool NewUpPress()
         {
-            return CurrentKeyboardState.IsKeyDown(Keys.W) && !OldKeyboardState.IsKeyDown(Keys.W);
+            return (CurrentKeyboardState.IsKeyDown(Keys.W) && !OldKeyboardState.IsKeyDown(Keys.W)) ||
+                   (CurrentKeyboardState.IsKeyDown(Keys.Up) && !OldKeyboardState.IsKeyDown(Keys.Up));
         }
 
         public bool NewDownPress()
         {
-            return CurrentKeyboardState.IsKeyDown(Keys.S) && !OldKeyboardState.IsKeyDown(Keys.S);
+            return (CurrentKeyboardState.IsKeyDown(Keys.S) && !OldKeyboardState.IsKeyDown(Keys.S)) ||
+                   (CurrentKeyboardState.IsKeyDown(Keys.Down) && !OldKeyboardState.IsKeyDown(Keys.Down));
         }
 
         public bool NewEnterPress()

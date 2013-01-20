@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using System.IO;
+using Insanity.GameStates;
 
 namespace Insanity
 {
@@ -20,6 +21,8 @@ namespace Insanity
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        public static bool PendingQuit; //terrible, but it works
+
         public static IGamestateManager GamestateManager;
         public static InputHandler Input;
         public static Dictionary<string, Texture2D> GameTextures;
@@ -28,7 +31,13 @@ namespace Insanity
 
         public InsanityGame()
         {
+            PendingQuit = false;
             graphics = new GraphicsDeviceManager(this);
+
+#if(!DEBUG) 
+            graphics.IsFullScreen = true;
+#endif
+
             Content.RootDirectory = "Content";
             GamestateManager = new GamestateManager(Content, graphics);
             Input = new InputHandler();
@@ -88,6 +97,15 @@ namespace Insanity
                 GameTextures[key] = Content.Load<Texture2D>(key);
             }
 
+            System.IO.DirectoryInfo spriteDirectory = new System.IO.DirectoryInfo("Content/spriteSheets");
+            fileList = spriteDirectory.GetFiles("*.xnb*", System.IO.SearchOption.AllDirectories);
+
+            foreach (FileInfo fileInfo in fileList)
+            {
+                string key = spriteDirectory.Name + "/" + Path.GetFileNameWithoutExtension(fileInfo.Name);
+                GameTextures[key] = Content.Load<Texture2D>(key);
+            }
+
             //GamestateManager.push(new Level("level0"));
             GamestateManager.Push(new MainMenu());
         }
@@ -109,8 +127,8 @@ namespace Insanity
         protected override void Update(GameTime gameTime)
         {
             // Allows the game to exit
-            Input.Update();
-            if (Input.Quit())
+            Input.Update(gameTime);
+            if (Input.Quit() || PendingQuit == true)
                 this.Exit();
 
             // TODO: Add your update logic here
@@ -125,7 +143,7 @@ namespace Insanity
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             GamestateManager.Current.Draw(gameTime);
 

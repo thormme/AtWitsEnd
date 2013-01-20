@@ -19,14 +19,16 @@ namespace Insanity
 
         protected int currentButton;
         
-        public MenuBase(List<Button> menuButtons)
+        public MenuBase()
         {
             loaded = false;
-            buttons = menuButtons ?? new List<Button>();
+            buttons = CreateButtons();
             currentButton = 0;
 
             buttons[currentButton].Select();
         }
+
+        public abstract List<Button> CreateButtons();
 
         public virtual void Update(GameTime gameTime)
         {

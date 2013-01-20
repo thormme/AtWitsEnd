@@ -107,18 +107,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Actor.cs" />
+    <Compile Include="Actors\Actor.cs" />
+    <Compile Include="Actors\Creature.cs" />
+    <Compile Include="Actors\Pill.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="Button.cs" />
-    <Compile Include="Enemy.cs" />
+    <Compile Include="Actors\Enemy.cs" />
     <Compile Include="GamestateManager.cs" />
     <Compile Include="GameStates\PauseState.cs" />
+    <Compile Include="IController.cs" />
     <Compile Include="IGamestate.cs" />
     <Compile Include="IGamestateManager.cs" />
     <Compile Include="GameStates\MainMenu.cs" />
     <Compile Include="InputHandler.cs" />
     <Compile Include="GameStates\Level.cs" />
-    <Compile Include="Player.cs" />
+    <Compile Include="Actors\Player.cs" />
     <Compile Include="PlayerState.cs" />
     <Compile Include="MenuBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
