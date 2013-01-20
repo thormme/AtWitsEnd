@@ -69,12 +69,12 @@ namespace Insanity
 
         public bool TakePill()
         {
-            return CurrentKeyboardState.IsKeyDown(Keys.Space) && !OldKeyboardState.IsKeyDown(Keys.Space);
+            return CurrentKeyboardState.IsKeyDown(Keys.C) && !OldKeyboardState.IsKeyDown(Keys.C);
         }
 
         public bool ViewPhoto()
         {
-            return CurrentKeyboardState.IsKeyDown(Keys.LeftControl) && !OldKeyboardState.IsKeyDown(Keys.LeftControl);
+            return CurrentKeyboardState.IsKeyDown(Keys.X) && !OldKeyboardState.IsKeyDown(Keys.X);
         }
 
         protected Level LevelRef;
