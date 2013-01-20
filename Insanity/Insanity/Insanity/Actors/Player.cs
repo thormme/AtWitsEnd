@@ -134,12 +134,34 @@ namespace Insanity.Actors
 
             foreach (var enemy in enemies)
             {
-                if(IsAttacking)
-                    OwnerLevel.RemoveActor(enemy);
-                else if (!IsFrozen)
+                var Enemy = enemy as Enemy;
+                if (Enemy.IsHarmful(InsanityLevel))
                 {
-                    InsanityLevel += .02;
-                    IsFrozen = true;
+                    if (IsAttacking)
+                        OwnerLevel.RemoveActor(enemy);
+                    else if (!IsFrozen)
+                    {
+                        InsanityLevel += .02;
+                        IsFrozen = true;
+
+                        Rectangle enemyBounds = new Rectangle((int)enemy.Position.X, (int)enemy.Position.Y, (int)enemy.Size.X, (int)enemy.Size.Y); 
+                        
+                        int feetHeight = 10;
+                        int sideWidth = 10;
+                        Rectangle leftSide = new Rectangle((int)Position.X, (int)Position.Y + feetHeight, (int)sideWidth, (int)Size.Y - feetHeight * 2);
+                        Rectangle rightSide = new Rectangle((int)Position.X + (int)Size.X - sideWidth, (int)Position.Y + feetHeight, (int)sideWidth, (int)Size.Y - feetHeight * 2);
+
+                        if (enemyBounds.Intersects(leftSide))
+                        {
+                            //bounce right
+                            Velocity.X = 100;
+                        }
+                        else if (enemyBounds.Intersects(rightSide))
+                        {
+                            //bounce left
+                            Velocity.X = -100;
+                        }            
+                    } 
                 }
             }
 

@@ -1,0 +1,11 @@
+frameWidth: 2 //in blocks
+frameHeight: 4 //in blocks
+maxFramesPerRow: 20 
+NumAnimations: 1
+
+AnimationName: Walk
+NextAnimation: Walk
+AnimationLength: 2 //numColumns
+AnimationSpeed: 500 //in milliseconds
+InitialRow: 0 
+InitialColumn: 0

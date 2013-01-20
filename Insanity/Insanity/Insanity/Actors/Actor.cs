@@ -15,7 +15,7 @@ namespace Insanity.Actors
         protected Sprite Sprite;
         protected bool facingLeft;
 
-        public Level OwnerLevel;
+        public virtual Level OwnerLevel { get; set; }
 
         public Actor(Vector2 position, Vector2 size, Sprite sprite)
         {

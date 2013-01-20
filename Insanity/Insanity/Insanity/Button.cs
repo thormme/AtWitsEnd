@@ -12,6 +12,7 @@ namespace Insanity
     public class Button
     {
         protected ButtonFunc onSelect;
+        protected bool selected;
         protected Sprite sprite;
         protected String text;
 
@@ -25,6 +26,7 @@ namespace Insanity
             text = buttonText;
             sprite = new Sprite(assetName);
             onSelect = selectFunc;
+            selected = false;
             position = pos;
             fontPosition = new Vector2(pos.X + pos.Width / 2, pos.Y + pos.Height / 2);
             spriteFont = InsanityGame.GameFonts["fonts/ButtonFont"];
@@ -38,11 +40,13 @@ namespace Insanity
         public void Select()
         {
             sprite.ChangeAnimation("Selected");
+            selected = true;
         }
 
         public void Unselect()
         {
             sprite.ChangeAnimation("Unselected");
+            selected = false;
         }
 
         public void Update(GameTime gameTime)
@@ -55,7 +59,7 @@ namespace Insanity
             sprite.Draw(gameTime, spriteBatch, position, false);
 
             Vector2 fontOrigin = spriteFont.MeasureString(text) / 2;
-            spriteBatch.DrawString(spriteFont, text, fontPosition, Color.Crimson, 0, fontOrigin, 1, SpriteEffects.None, 0);
+            spriteBatch.DrawString(spriteFont, text, fontPosition, selected ? Color.White : Color.Black, 0, fontOrigin, 1, SpriteEffects.None, 0);
         }
     }
 }
