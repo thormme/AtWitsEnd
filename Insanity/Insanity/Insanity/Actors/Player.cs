@@ -33,5 +33,9 @@ namespace Insanity.Actors
                 InsanityGame.GamestateManager.Push(new PauseState());
             }
         }
+
+        public virtual void DrawHud(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+        }
     }
 }

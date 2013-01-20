@@ -74,6 +74,8 @@ namespace Insanity
 
                 var numAnimations = Convert.ToInt32(input.Split(' ')[1]);
 
+                reader.ReadLine();
+
                 for(int i = 0; i < numAnimations; i++)
                 {
                     var temp = new Animation();
@@ -96,6 +98,8 @@ namespace Insanity
 
                     input = reader.ReadLine();
                     temp.StartingColumn = Convert.ToInt32(input.Split(' ')[1]);
+
+                    reader.ReadLine();
 
                     spriteInfo.Animations.Add(animationName, temp);
                 }
