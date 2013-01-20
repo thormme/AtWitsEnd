@@ -14,6 +14,7 @@ namespace Insanity.Actors
         public static double inanimateEnemyThreshold = 0.14;
         public static double humanEnemyThreshold = 0.35;
         public static double ghastlyEnemyThreshold = 0.65;
+        public static double deadlyInsane = 1.0;
 
         protected HUD hud;
 
