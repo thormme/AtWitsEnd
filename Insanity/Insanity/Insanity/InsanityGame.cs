@@ -33,6 +33,9 @@ namespace Insanity
         public static int ScreenWidth;
         private LoadingScreen LoadingScreen;
 
+        public SoundEffect soundEffect;
+        private SoundEffectInstance Instance;
+
         public InsanityGame()
         {
             PendingQuit = false;
@@ -78,6 +81,8 @@ namespace Insanity
 
             // TODO: use this.Content to load your game content here
             GameTextures["Button"] = Content.Load<Texture2D>("Button");
+
+            soundEffect = Content.Load<SoundEffect>("background");
 
             System.IO.DirectoryInfo fontsDirectory = new System.IO.DirectoryInfo("Content/fonts");
             IEnumerable<FileInfo> fileList = fontsDirectory.GetFiles("*.xnb*", System.IO.SearchOption.AllDirectories);
@@ -129,6 +134,11 @@ namespace Insanity
             LoadingScreen.LoadContent();
             
             GamestateManager.Push(new MainMenu());
+
+            Instance = soundEffect.CreateInstance();
+            Instance.IsLooped = true;
+            Instance.Play();
+
             //GamestateManager.Push(new Level("level3"));
         }
 
