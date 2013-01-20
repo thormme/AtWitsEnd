@@ -25,6 +25,8 @@ namespace Insanity.GameStates
         public List<List<Tile>> Tiles;
         public List<Actor> Actors;
 
+        public Player mPlayer { get; protected set; }
+
         GraphicsDeviceManager mGraphics;
         SpriteBatch mSpriteBatch;
 
@@ -68,6 +70,8 @@ namespace Insanity.GameStates
                     Actors.Add(actor);
                 }
             }
+
+            mPlayer = Actors.First((actor) => { return (actor as Player) != null; }) as Player;
 
             Tiles = new List<List<Tile>>();
 
@@ -183,6 +187,8 @@ namespace Insanity.GameStates
             {
                 actor.Draw(Camera, mSpriteBatch, gameTime);
             }
+
+            mPlayer.DrawHud(gameTime, mSpriteBatch);
 
             mSpriteBatch.End();
         }

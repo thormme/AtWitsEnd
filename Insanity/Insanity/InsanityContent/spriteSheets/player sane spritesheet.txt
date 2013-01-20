@@ -2,33 +2,38 @@ frameWidth: 2 //in blocks
 frameHeight: 4 //in blocks
 maxFramesPerRow: 20 
 NumAnimations: 5
-AnimationLength: 4 //numColumns
-AnimationSpeed: 100 //in milliseconds
+
 AnimationName: Jump
 NextAnimation: Fall
+AnimationLength: 4 //numColumns
+AnimationSpeed: 100 //in milliseconds
 InitialRow: 0 
 InitialColumn: 0
-AnimationLength: 1 //numColumns
-AnimationSpeed: 100 //in milliseconds
+
 AnimationName: Fall
 NextAnimation: Fall
+AnimationLength: 1 //numColumns
+AnimationSpeed: 100 //in milliseconds
 InitialRow: 0 
 InitialColumn: 5
-AnimationLength: 2 //numColumns
-AnimationSpeed: 100 //in milliseconds
+
 AnimationName: Land
 NextAnimation: Stand
+AnimationLength: 2 //numColumns
+AnimationSpeed: 100 //in milliseconds
 InitialRow: 0 
 InitialColumn: 4
-AnimationLength: 8
-AnimationSpeed: 100
+
 AnimationName: Walk
 NextAnimation: Walk
+AnimationLength: 8
+AnimationSpeed: 100
 InitialRow: 1
 InitialColumn: 0
-AnimationLength: 1
-AnimationSpeed: 50
+
 AnimationName: Stand
 NextAnimation: Stand
+AnimationLength: 1
+AnimationSpeed: 50
 InitialRow: 2
 InitialColumn: 0
