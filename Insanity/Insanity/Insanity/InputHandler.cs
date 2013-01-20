@@ -64,7 +64,7 @@ namespace Insanity
 
         public bool Pause()
         {
-            return CurrentKeyboardState.IsKeyDown(Keys.P) && !OldKeyboardState.IsKeyDown(Keys.P);
+            return CurrentKeyboardState.IsKeyDown(Keys.Escape) && !OldKeyboardState.IsKeyDown(Keys.Escape);
         }
 
         public bool TakePill()

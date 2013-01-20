@@ -145,7 +145,7 @@ namespace Insanity
         {
             // Allows the game to exit
             Input.Update(gameTime);
-            if (Input.Quit() || PendingQuit == true)
+            if (/*Input.Quit() || */PendingQuit == true)
                 this.Exit();
 
             // TODO: Add your update logic here
