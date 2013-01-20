@@ -71,36 +71,25 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="levels\level0_0.bmp">
-      <Name>level0_0</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="fonts\hudFont.spritefont">
       <Name>hudFont</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>
+    <None Include="spriteSheets\player sane spritesheet.txt">
+      <Name>player sane spritesheet</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="tiles\empty.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Name>empty</Name>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="levels\level0_1.bmp">
-      <Name>level0_1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="levels\level0_2.bmp">
-      <Name>level0_2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
+    <None Include="spriteSheets\player midsane spritesheet.txt">
+      <Name>player midsane spritesheet</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Compile Include="tiles\empty.bmp">
       <Name>empty</Name>
       <Importer>TextureImporter</Importer>
@@ -165,12 +154,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="spriteSheets\player sane spritesheet.txt">
-      <Name>player sane spritesheet</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="spriteSheets\pill.png">
       <Name>pill</Name>
       <Importer>TextureImporter</Importer>
@@ -211,6 +194,76 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="tiles\hospital sane spritesheet.png">
+      <Name>hospital sane spritesheet</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="levels\level0_0.png">
+      <Name>level0_0</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="levels\level0_1.png">
+      <Name>level0_1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="levels\level0_2.png">
+      <Name>level0_2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="spriteSheets\player insane spritesheet.txt">
+      <Name>player insane spritesheet</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="spriteSheets\player insane spritesheet.png">
+      <Name>player insane spritesheet</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="spriteSheets\player midsane spritesheet.png">
+      <Name>player midsane spritesheet</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="tiles\hospital sane spritesheet.txt">
+      <Name>hospital sane spritesheet</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="spriteSheets\doctor harmful spritesheet.png">
+      <Name>doctor harmful spritesheet</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="spriteSheets\doctor visible spritesheet.png">
+      <Name>doctor visible spritesheet</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="spriteSheets\doctor harmful spritesheet.txt">
+      <Name>doctor harmful spritesheet</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="spriteSheets\doctor visible spritesheet.txt">
+      <Name>doctor visible spritesheet</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 

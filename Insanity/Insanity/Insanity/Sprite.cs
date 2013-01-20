@@ -10,8 +10,9 @@ namespace Insanity
 {
     public class Sprite
     {
-        static int BlockHeight = 80;
-        static int BlockWidth = 80;
+        public static int BlockHeight = 80;
+        public static int BlockWidth = 80;
+        public static int MaxBlockColumns = 20;
 
         private struct Animation
         {
@@ -179,6 +180,22 @@ namespace Insanity
         public string GetAnimation()
         {
             return currentAnimation.Name;
+        }
+
+        public int GetCurrentFrame()
+        {
+            return currentFrame;
+        }
+
+        public bool SetCurrentFrame(int frame)
+        {
+            if (frame < 0)
+                return false;
+            if (frame >= currentAnimation.length)
+                return false;
+
+            currentFrame = frame;
+            return true;
         }
     }
 }

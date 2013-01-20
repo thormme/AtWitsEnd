@@ -109,6 +109,8 @@
   <ItemGroup>
     <Compile Include="Actors\Actor.cs" />
     <Compile Include="Actors\Creature.cs" />
+    <Compile Include="Actors\DoctorMonster.cs" />
+    <Compile Include="Actors\InputBots\DoctorInput.cs" />
     <Compile Include="Actors\Pill.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="Button.cs" />
@@ -116,7 +118,7 @@
     <Compile Include="GamestateManager.cs" />
     <Compile Include="GameStates\PauseState.cs" />
     <Compile Include="HUD.cs" />
-    <Compile Include="IController.cs" />
+    <Compile Include="IInputAgent.cs" />
     <Compile Include="IGamestate.cs" />
     <Compile Include="IGamestateManager.cs" />
     <Compile Include="GameStates\MainMenu.cs" />

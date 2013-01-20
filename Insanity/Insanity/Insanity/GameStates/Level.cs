@@ -36,20 +36,13 @@ namespace Insanity.GameStates
 
         private Tile CreateTileFromColor(Color color, int x, int y, int index)
         {
-            bool solid = true;
-            Sprite sprite;
+            Sprite sprite = new Sprite("tiles/hospital sane spritesheet");
 
-            if (color.PackedValue == Color.White.PackedValue)
-            {
-                sprite = new Sprite("tiles/ground");
-            }
-            else //if (color.PackedValue == Color.Black.PackedValue)
-            {
-                solid = false;
-                sprite = new Sprite("tiles/empty");
-            }
+            int blockRow    = (int)color.R;
+            int blockColumn = (int)color.G;
+            bool solid      = (int)color.B < 255;
 
-            return new Tile(solid, sprite, x, y, 0, 0);
+            return new Tile(solid, sprite, x, y, blockRow, blockColumn);
         }
 
         public Level(string levelName)
@@ -204,7 +197,7 @@ namespace Insanity.GameStates
         {
             foreach (Actor actor in Actors)
             {
-                actor.Update(gameTime);
+                actor.Update(gameTime, mPlayer.InsanityLevel);
             }
             CommitActorChanges();
         }

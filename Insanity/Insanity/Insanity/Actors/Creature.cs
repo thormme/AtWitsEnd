@@ -11,14 +11,15 @@ namespace Insanity.Actors
     public class Creature : Actor
     {
         public Vector2 Velocity = new Vector2();
-        protected IController mController;
+        protected IInputAgent mController;
 
         protected float mHorizontalSpeed;
         protected float mJumpSpeed;
 
+<<<<<<< HEAD
         Vector2[] lastValidPosition = new Vector2[Level.NumInsanityLevels];
 
-        public Creature(Vector2 position, Vector2 size, Sprite sprite, IController controller, float horizontalSpeed = 60, float jumpSpeed = 90)
+        public Creature(Vector2 position, Vector2 size, Sprite sprite, IInputAgent controller, float horizontalSpeed = 60, float jumpSpeed = 90)
             : base(position, size, sprite)
         {
             mController = controller;
@@ -180,9 +181,9 @@ namespace Insanity.Actors
             Position = lastValidPosition[OwnerLevel.InsanityLevel];
         }
 
-        public override void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime, double insanityLevel)
         {
-            base.Update(gameTime);
+            base.Update(gameTime, insanityLevel);
             mController.Update(gameTime);
             Move(gameTime);
         }
@@ -195,6 +196,16 @@ namespace Insanity.Actors
                 (int)Size.X * 2,
                 (int)Size.Y),
                 facingLeft);
+        }
+
+        protected void ChangeSprite(Sprite sprite)
+        {
+            string currentAnimation = Sprite.GetAnimation();
+            int currentFrame = Sprite.GetCurrentFrame();
+
+            Sprite = sprite;
+            sprite.ChangeAnimation(currentAnimation, true);
+            sprite.SetCurrentFrame(currentFrame);
         }
     }
 }

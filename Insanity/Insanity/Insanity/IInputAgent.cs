@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace Insanity
 {
-    public interface IController
+    public interface IInputAgent
     {
         void Update(GameTime gameTime);
 
