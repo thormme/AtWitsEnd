@@ -115,6 +115,7 @@
     <Compile Include="Actors\Enemy.cs" />
     <Compile Include="GamestateManager.cs" />
     <Compile Include="GameStates\PauseState.cs" />
+    <Compile Include="HUD.cs" />
     <Compile Include="IController.cs" />
     <Compile Include="IGamestate.cs" />
     <Compile Include="IGamestateManager.cs" />
