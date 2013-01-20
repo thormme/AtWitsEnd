@@ -10,6 +10,8 @@ namespace Insanity.Actors
 {
     public class Creature : Actor
     {
+        protected const double freezeTime = 1000; //milliseconds
+        
         static int GravityRate = 300;
 
         public Vector2 Velocity = new Vector2();
@@ -18,6 +20,10 @@ namespace Insanity.Actors
         protected float mHorizontalSpeed;
         protected float mJumpSpeed;
 
+        public bool IsFrozen { get; protected set; }
+        protected bool wasFrozen;
+        protected double freezeTimer;
+        
         Vector2[] lastValidPosition = new Vector2[Level.NumInsanityLevels];
 
         public Creature(Vector2 position, Vector2 size, Sprite sprite, IInputAgent controller, float horizontalSpeed = 60, float jumpSpeed = 90)
@@ -26,6 +32,9 @@ namespace Insanity.Actors
             mController = controller;
             mHorizontalSpeed = horizontalSpeed;
             mJumpSpeed = jumpSpeed;
+
+            IsFrozen = false;
+            wasFrozen = false;
         }
 
         public virtual void Move(GameTime gameTime)
@@ -67,32 +76,35 @@ namespace Insanity.Actors
                 Position.X = collidingRightTiles[0].X - Size.X;
             }
 
-            if (mController.MoveLeft())
+            if (!IsFrozen)
             {
-                Velocity.X = -mHorizontalSpeed;
-                facingLeft = true;
-                if (onGround)
+                if (mController.MoveLeft())
                 {
-                    Sprite.ChangeAnimation("Walk");
+                    Velocity.X = -mHorizontalSpeed;
+                    facingLeft = true;
+                    if (onGround)
+                    {
+                        Sprite.ChangeAnimation("Walk");
+                    }
                 }
-            }
-            if (mController.MoveRight())
-            {
-                Velocity.X = mHorizontalSpeed;
-                facingLeft = false;
-                if (onGround)
+                if (mController.MoveRight())
                 {
-                    Sprite.ChangeAnimation("Walk");
+                    Velocity.X = mHorizontalSpeed;
+                    facingLeft = false;
+                    if (onGround)
+                    {
+                        Sprite.ChangeAnimation("Walk");
+                    }
                 }
-            }
-            if (!(mController.MoveRight() || mController.MoveLeft()) && onGround)
-            {
-                Sprite.ChangeAnimation("Stand");
-            }
-            if (mController.Jump() && onGround)
-            {
-                Velocity.Y = -mJumpSpeed;
-                Sprite.ChangeAnimation("Jump");
+                if (!(mController.MoveRight() || mController.MoveLeft()) && onGround)
+                {
+                    Sprite.ChangeAnimation("Stand");
+                }
+                if (mController.Jump() && onGround)
+                {
+                    Velocity.Y = -mJumpSpeed;
+                    Sprite.ChangeAnimation("Jump");
+                } 
             }
 
             if (onGround)
@@ -178,6 +190,23 @@ namespace Insanity.Actors
         public override void Update(GameTime gameTime, double insanityLevel)
         {
             base.Update(gameTime, insanityLevel);
+
+            if (IsFrozen && !wasFrozen)
+            {
+                wasFrozen = true;
+                freezeTimer = 0;
+            }
+            else if (IsFrozen)
+            {
+                freezeTimer += gameTime.ElapsedGameTime.TotalMilliseconds;
+
+                if (freezeTimer > freezeTime)
+                {
+                    IsFrozen = false;
+                    wasFrozen = false; 
+                }
+            }
+
             mController.Update(gameTime);
             Move(gameTime);
         }

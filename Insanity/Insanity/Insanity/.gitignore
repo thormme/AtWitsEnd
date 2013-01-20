@@ -2,3 +2,4 @@
 /obj/
 /*.db
 /*.csproj.Debug.cachefile
+/*.csproj.Release.cachefile

@@ -22,7 +22,7 @@ namespace Insanity.Actors
         protected Sprite saneSprite;
         protected Sprite midsaneSprite;
         protected Sprite insaneSprite;
-
+        
         protected enum SanityState
         {
             Sane, Midsane, Insane
@@ -34,9 +34,10 @@ namespace Insanity.Actors
         public double InsanityLevel { get; protected set; }
         public int CurrentPills { get; protected set; }
 
+        public bool IsAttacking { get { return Sprite.GetAnimation().Equals("Fall"); } }
 
         public Player(Vector2 position)
-            : base(position, new Vector2(60, 240), new Sprite("spriteSheets/player sane spritesheet"), new InputHandler(), 180, 300)
+            : base(position, new Vector2(60, 240), new Sprite("spriteSheets/player sane spritesheet"), new InputHandler(), 300, 300)
         {
             currentSanity = SanityState.Sane;
             saneSprite = Sprite;
@@ -84,6 +85,33 @@ namespace Insanity.Actors
                     InsanityLevel = humanEnemyThreshold;
                 }
             }
+
+            var pills = OwnerLevel.Actors.Where((actor) => { 
+                return actor is Pill && IsTouching(actor); 
+            });
+
+            foreach (Pill pill in pills)
+            {
+                CurrentPills++;
+                OwnerLevel.RemoveActor(pill);
+            }
+
+            var enemies = OwnerLevel.Actors.Where((actor) =>
+            {
+                return actor is Enemy && IsTouching(actor);
+            });
+
+            foreach (var enemy in enemies)
+            {
+                if(IsAttacking)
+                    OwnerLevel.RemoveActor(enemy);
+                else if (!IsFrozen)
+                {
+                    InsanityLevel += .02;
+                    IsFrozen = true;
+                }
+            }
+
             InsanityLevel += gameTime.ElapsedGameTime.TotalSeconds / 214;
 
             SanityState newSanity;
@@ -114,16 +142,6 @@ namespace Insanity.Actors
                 ChangeSprite(newSanity);
             }
             currentSanity = newSanity;
-
-            var pills = OwnerLevel.Actors.Where((actor) => { 
-                return actor is Pill && IsTouching(actor); 
-            });
-
-            foreach (Pill pill in pills)
-            {
-                CurrentPills++;
-                OwnerLevel.RemoveActor(pill);
-            }
 
             hud.Update(gameTime, this);
         }
