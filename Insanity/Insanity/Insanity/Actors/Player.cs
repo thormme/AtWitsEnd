@@ -36,7 +36,7 @@ namespace Insanity.Actors
 
 
         public Player(Vector2 position)
-            : base(position, new Vector2(60, 240), new Sprite("spriteSheets/player sane spritesheet"), new InputHandler(), 180, 300)
+            : base(position, new Vector2(60, 240), new Sprite("spriteSheets/player sane spritesheet"), new InputHandler(), 300, 300)
         {
             currentSanity = SanityState.Sane;
             saneSprite = Sprite;
