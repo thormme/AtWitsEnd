@@ -1,0 +1,32 @@
+frameWidth: 4 //in blocks
+frameHeight: 1 //in blocks
+maxFramesPerRow: 20 
+NumAnimations: 4
+
+AnimationName: Green
+NextAnimation: Green
+AnimationLength: 1 //numColumns
+AnimationSpeed: 500 //in milliseconds
+InitialRow: 0 
+InitialColumn: 0 //repeat animationLength through here for multiple animations
+
+AnimationName: Yellow
+NextAnimation: Yellow
+AnimationLength: 1 //numColumns
+AnimationSpeed: 500 //in milliseconds
+InitialRow: 1 
+InitialColumn: 0 //repeat animationLength through here for multiple animations
+
+AnimationName: Orange
+NextAnimation: Orange
+AnimationLength: 1 //numColumns
+AnimationSpeed: 500 //in milliseconds
+InitialRow: 2 
+InitialColumn: 0 //repeat animationLength through here for multiple animations
+
+AnimationName: Red
+NextAnimation: Red
+AnimationLength: 1 //numColumns
+AnimationSpeed: 500 //in milliseconds
+InitialRow: 3 
+InitialColumn: 0 //repeat animationLength through here for multiple animations

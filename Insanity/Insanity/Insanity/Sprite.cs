@@ -121,6 +121,17 @@ namespace Insanity
             }
         }
 
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Rectangle position, Vector2 sourcePos)
+        {
+            int row = (int)sourcePos.X;
+            int column = (int)sourcePos.Y;
+            int width = spriteInfo.frameWidth * BlockWidth;
+            int height = spriteInfo.frameHeight * BlockHeight;
+            source = new Rectangle(column * width, row * height, width, height);
+
+            spriteBatch.Draw(texture, position, source, Color.White);
+        }
+
         public void Update(GameTime gameTime)
         {
             elapsedTime += gameTime.ElapsedGameTime.TotalMilliseconds;
@@ -131,10 +142,12 @@ namespace Insanity
 
                 if (currentFrame >= currentAnimation.length)
                 {
-                    currentFrame = 0;
-                    currentAnimation = spriteInfo.Animations[currentAnimation.NextAnimation];
+                    ChangeAnimation(currentAnimation.NextAnimation, true);
                 }
-                UpdateSource();
+                else
+                {
+                    UpdateSource();
+                }
             }
         }
 
@@ -147,12 +160,12 @@ namespace Insanity
             source = new Rectangle(column * width, row * height, width, height);
         }
 
-        public bool ChangeAnimation(string animationName)
+        public bool ChangeAnimation(string animationName, bool force = false)
         {
             if (!spriteInfo.Animations.ContainsKey(animationName))
                 return false;
 
-            if (currentAnimation.Name == animationName)
+            if (currentAnimation.Name == animationName && !force)
                 return true;
 
             currentFrame = 0;

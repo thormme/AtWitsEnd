@@ -64,5 +64,10 @@ namespace Insanity
         {
             return CurrentKeyboardState.IsKeyDown(Keys.P) && !OldKeyboardState.IsKeyDown(Keys.P);
         }
+
+        public bool TakePill()
+        {
+            return CurrentKeyboardState.IsKeyDown(Keys.Space) && !OldKeyboardState.IsKeyDown(Keys.Space);
+        }
     }
 }

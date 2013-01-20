@@ -27,11 +27,15 @@ namespace Insanity.Actors
         {
             int feetHeight = 10;
             int sideWidth = 10;
-            List<Tile> collidingLeftTiles = OwnerLevel.GetCollidingTiles(new Rectangle((int)Position.X, (int)Position.Y, (int)sideWidth, (int)Size.Y - feetHeight), false);
-            List<Tile> collidingRightTiles = OwnerLevel.GetCollidingTiles(new Rectangle((int)Position.X + (int)Size.X - sideWidth, (int)Position.Y, (int)sideWidth, (int)Size.Y - feetHeight), false);
+            List<Tile> collidingLeftTiles = OwnerLevel.GetCollidingTiles(new Rectangle((int)Position.X, (int)Position.Y + feetHeight, (int)sideWidth, (int)Size.Y - feetHeight * 2), false);
+            List<Tile> collidingRightTiles = OwnerLevel.GetCollidingTiles(new Rectangle((int)Position.X + (int)Size.X - sideWidth, (int)Position.Y + feetHeight, (int)sideWidth, (int)Size.Y - feetHeight * 2), false);
             List<Tile> collidingFootTiles = OwnerLevel.GetCollidingTiles(new Rectangle((int)Position.X + 2, (int)Position.Y + (int)Size.Y - feetHeight, (int)Size.X - 4, feetHeight), false).Where((tile) => 
             {
-                return !(collidingLeftTiles.Contains(tile) || collidingRightTiles.Contains(tile)); 
+                return !(collidingLeftTiles.Contains(tile) || collidingRightTiles.Contains(tile));
+            }).ToList();
+            List<Tile> collidingHeadTiles = OwnerLevel.GetCollidingTiles(new Rectangle((int)Position.X + 2, (int)Position.Y, (int)Size.X - 4, feetHeight), false).Where((tile) =>
+            {
+                return !(collidingLeftTiles.Contains(tile) || collidingRightTiles.Contains(tile));
             }).ToList();
 
             bool onGround = collidingFootTiles.Count > 0 && Velocity.Y > 0;
@@ -40,6 +44,11 @@ namespace Insanity.Actors
             {
                 Velocity.Y = 0;
                 Position.Y = collidingFootTiles[0].Y - (int)Size.Y;
+            }
+            if (collidingHeadTiles.Count > 0 && Velocity.Y < 0)
+            {
+                Velocity.Y = 0;
+                Position.Y = collidingHeadTiles[0].Y + (int)Tile.Height;
             }
             if (collidingLeftTiles.Count > 0)
             {

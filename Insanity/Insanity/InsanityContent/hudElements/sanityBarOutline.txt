@@ -1,0 +1,11 @@
+frameWidth: 4 //in blocks
+frameHeight: 1 //in blocks
+maxFramesPerRow: 20 
+NumAnimations: 1
+
+AnimationName: Unselected
+NextAnimation: Unselected
+AnimationLength: 1 //numColumns
+AnimationSpeed: 500 //in milliseconds
+InitialRow: 0 
+InitialColumn: 0 //repeat animationLength through here for multiple animations

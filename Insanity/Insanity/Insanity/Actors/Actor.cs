@@ -39,5 +39,13 @@ namespace Insanity.Actors
         {
             Sprite.Update(gameTime);
         }
+
+        public bool IsTouching(Actor actor)
+        {
+            bool intersect;
+            Rectangle otherBounds = new Rectangle((int)actor.Position.X, (int)actor.Position.Y, (int)actor.Size.X, (int)actor.Size.Y);
+            new Rectangle((int)Position.X, (int)Position.Y, (int)Size.X, (int)Size.Y).Intersects(ref otherBounds, out intersect);
+            return intersect;
+        }
     }
 }
