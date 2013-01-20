@@ -40,7 +40,7 @@ namespace Insanity.Actors
         public bool IsAttacking { get { return Sprite.GetAnimation().Equals("Fall"); } }
 
         public Player(Vector2 position)
-            : base(position, new Vector2(60, 240), new Sprite("spriteSheets/player sane spritesheet"), new InputHandler(), 300, 300)
+            : base(position, new Vector2(40, 180), new Sprite("spriteSheets/player sane spritesheet"), new InputHandler(), 300, 400)
         {
             currentSanity = SanityState.Sane;
             saneSprite = Sprite;
