@@ -48,7 +48,7 @@ namespace Insanity.GameStates
                 sprite = new Sprite("tiles/empty");
             }
 
-            return new Tile(solid, sprite, x, y, index);
+            return new Tile(solid, sprite, x, y, 0, 0);
         }
 
         public Level(string levelName)

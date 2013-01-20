@@ -87,6 +87,8 @@ namespace Insanity.Actors
                 CurrentPills++;
                 OwnerLevel.RemoveActor(pill);
             }
+
+            hud.Update(gameTime, this);
         }
 
         public virtual void DrawHud(GameTime gameTime, SpriteBatch spriteBatch)

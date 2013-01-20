@@ -13,23 +13,25 @@ namespace Insanity
         public Sprite Sprite { get; protected set; }
         public int X { get; protected set; }
         public int Y { get; protected set; }
-        public int Index { get; protected set; }
+        public int Row { get; protected set; }
+        public int Column { get; protected set; }
 
         public static int Width = 60;
         public static int Height = 60;
 
-        public Tile(bool solid, Sprite sprite, int x, int y, int index)
+        public Tile(bool solid, Sprite sprite, int x, int y, int row, int column)
         {
             Solid = solid;
             Sprite = sprite;
             X = x;
             Y = y;
-            Index = index;
+            Row = row;
+            Column = column;
         }
 
         public virtual void Draw(Camera camera, SpriteBatch spriteBatch, GameTime gameTime)
         {
-            Sprite.Draw(gameTime, spriteBatch, new Rectangle(X - (int)camera.Position.X, Y - (int)camera.Position.Y, Width, Height), false);
+            Sprite.Draw(gameTime, spriteBatch, new Rectangle(X - (int)camera.Position.X, Y - (int)camera.Position.Y, Width, Height), new Vector2(Row, Column));
         }
     }
 }

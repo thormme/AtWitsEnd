@@ -16,6 +16,7 @@ namespace Insanity
         protected Sprite sanityBackground;
         protected SpriteFont hudFont;
 
+        protected Rectangle backgroundPosition;
         protected Rectangle fillPosition;
         protected Rectangle overlayPosition;
         protected Rectangle pillPosition;
@@ -30,22 +31,30 @@ namespace Insanity
             sanityBackground = new Sprite("hudElements/sanityBarBackground");
             pillMarker = new Sprite("spriteSheets/pill");
 
-            hudFont = InsanityGame.GameFonts["fonts/ButtonFont"];
+            hudFont = InsanityGame.GameFonts["fonts/hudFont"];
+            text = "";
+
+            textPosition = new Vector2(360, 70);
+
+            overlayPosition = new Rectangle(30, 25, 240, 60);
+            pillPosition = new Rectangle(290, 25, 30, 60);
         }
 
         public virtual void Update(GameTime gameTime, Player player)
         {
+            text = string.Format("x{0}", player.CurrentPills);
         }
 
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            sanityBackground.Draw(gameTime, spriteBatch, backgroundPosition, false);
             sanityFill.Draw(gameTime, spriteBatch, fillPosition, false);
             sanityOverlay.Draw(gameTime, spriteBatch, overlayPosition, false);
             pillMarker.Draw(gameTime, spriteBatch, pillPosition, false);
 
             //draw text component
             Vector2 fontOrigin = hudFont.MeasureString(text) / 2;
-            spriteBatch.DrawString(hudFont, text, textPosition, Color.Crimson, 0, fontOrigin, 1, SpriteEffects.None, 0);
+            spriteBatch.DrawString(hudFont, text, textPosition, Color.Black, 0, fontOrigin, 1, SpriteEffects.None, 0);
         }
     }
 }
