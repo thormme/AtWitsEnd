@@ -24,24 +24,6 @@ namespace Insanity.Actors
 
         public virtual void Move(GameTime gameTime)
         {
-            if (mController.MoveLeft())
-            {
-                Velocity.X = -mHorizontalSpeed;
-                facingLeft = true;
-            }
-            if (mController.MoveRight())
-            {
-                Velocity.X = mHorizontalSpeed;
-                facingLeft = false;
-            }
-            if (mController.Jump())
-            {
-                Velocity.Y = -mJumpSpeed;
-            }
-
-            Velocity.Y += (float)gameTime.ElapsedGameTime.TotalSeconds * 40;
-            Position += (float)gameTime.ElapsedGameTime.TotalSeconds * Velocity;
-
             int feetHeight = 10;
             int sideWidth = 30;
             List<Tile> collidingLeftTiles = OwnerLevel.GetCollidingTiles(new Rectangle((int)Position.X, (int)Position.Y, (int)sideWidth, (int)Size.Y - feetHeight), false);
@@ -50,7 +32,10 @@ namespace Insanity.Actors
             {
                 return !(collidingLeftTiles.Contains(tile) || collidingRightTiles.Contains(tile)); 
             }).ToList();
-            if (collidingFootTiles.Count > 0 && Velocity.Y > 0)
+
+            bool onGround = collidingFootTiles.Count > 0 && Velocity.Y > 0;
+
+            if (onGround)
             {
                 Velocity.Y = 0;
                 Position.Y = collidingFootTiles[0].Y - (int)Size.Y;
@@ -65,6 +50,33 @@ namespace Insanity.Actors
                 Velocity.X = 0;
                 Position.X = collidingRightTiles[0].X - Size.X;
             }
+
+            if (mController.MoveLeft())
+            {
+                Velocity.X = -mHorizontalSpeed;
+                facingLeft = true;
+                if (onGround)
+                {
+                    Sprite.ChangeAnimation("Walk");
+                }
+            }
+            if (mController.MoveRight())
+            {
+                Velocity.X = mHorizontalSpeed;
+                facingLeft = false;
+                if (onGround)
+                {
+                    Sprite.ChangeAnimation("Walk");
+                }
+            }
+            if (mController.Jump() && onGround)
+            {
+                Velocity.Y = -mJumpSpeed;
+                Sprite.ChangeAnimation("Jump");
+            }
+
+            Velocity.Y += (float)gameTime.ElapsedGameTime.TotalSeconds * 40;
+            Position += (float)gameTime.ElapsedGameTime.TotalSeconds * Velocity;
         }
 
         public override void Update(GameTime gameTime)

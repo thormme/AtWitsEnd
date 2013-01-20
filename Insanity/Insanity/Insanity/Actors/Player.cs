@@ -17,7 +17,7 @@ namespace Insanity.Actors
         public Player(Vector2 position)
             : base(position, new Vector2(120, 240), new Sprite("spriteSheets/player sane spritesheet"), new InputHandler())
         {
-            Sprite.ChangeAnimation("Walk");
+            
         }
 
         public Player(List<string> args)
