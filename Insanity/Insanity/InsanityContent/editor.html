@@ -26,7 +26,7 @@ function mouseClick(e) {
 		fullContext.drawImage(paletteCanvas,sx,sy,swidth,sheight,x,y,60,60);
 		dSmall[0]   = r;
 		dSmall[1]   = g;
-		dSmall[2]   = (document.getElementById("solid").checked*255);
+		dSmall[2]   = (!(document.getElementById("solid").checked)*255);
 		dSmall[3]   = 255;
 		smallContext.putImageData( idSmall, xTile, yTile ); 
 	} else {
@@ -37,10 +37,10 @@ function mouseClick(e) {
 function paletteClick(e) {
 	var x = e.pageX - paletteCanvas.offsetLeft;
 	var y = e.pageY - paletteCanvas.offsetTop;
-	r = Math.floor(x / 80);
-	g = Math.floor(y / 80);
-	sx = r * 80;
-	sy = g * 80;
+	g = Math.floor(x / 80);
+	r = Math.floor(y / 80);
+	sx = g * 80;
+	sy = r * 80;
 	console.log(sx + " " + sy);
 	swidth = 80;
 	sheight = 80;
