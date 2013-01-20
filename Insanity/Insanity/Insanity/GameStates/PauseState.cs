@@ -11,8 +11,8 @@ namespace Insanity.GameStates
         public PauseState()
             : base()
         {
-            TitleText = "pause";
-            TitlePosition = new Vector2(400, 100);
+            TitleText = "Pause";
+            TitlePosition = new Vector2(InsanityGame.ScreenWidth / 2, InsanityGame.ScreenHeight / 4);
         }
 
         public void ResumeFunc()
@@ -31,8 +31,8 @@ namespace Insanity.GameStates
         {
             var menuButtons = new List<Button>();
 
-            var resumeButton = new Button("Button", "Resume", new Rectangle(300, 200, 120, 60), ResumeFunc);
-            var quitButton = new Button("Button", "Quit", new Rectangle(300, 300, 120, 60), QuitFunc);
+            var resumeButton = new Button("Button", "Resume", new Rectangle(InsanityGame.ScreenWidth / 2 - 60, InsanityGame.ScreenHeight * 3/ 8, 120, 60), ResumeFunc);
+            var quitButton = new Button("Button", "Quit", new Rectangle(InsanityGame.ScreenWidth / 2 - 60, InsanityGame.ScreenHeight * 5 / 8, 120, 60), QuitFunc);
 
             menuButtons.Add(resumeButton);
             menuButtons.Add(quitButton);
