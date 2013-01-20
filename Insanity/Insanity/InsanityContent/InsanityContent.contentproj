@@ -78,6 +78,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="fonts\hudFont.spritefont">
+      <Name>hudFont</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
     <None Include="tiles\empty.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Name>empty</Name>
@@ -177,7 +182,35 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="hudElements\" />
+    <Compile Include="hudElements\sanityBarBackground.png">
+      <Name>sanityBarBackground</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="hudElements\sanityBarBackground.txt">
+      <Name>sanityBarBackground</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="hudElements\sanityBarFills.png">
+      <Name>sanityBarFills</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="hudElements\sanityBarFills.txt">
+      <Name>sanityBarFills</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="hudElements\sanityBarOutline.txt">
+      <Name>sanityBarOutline</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="hudElements\sanityBarOutline.png">
+      <Name>sanityBarOutline</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 

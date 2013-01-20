@@ -43,6 +43,8 @@ namespace Insanity.Actors
             {
                 InsanityGame.GamestateManager.Push(new PauseState());
             }
+
+            hud.Update(gameTime, this);
         }
 
         public virtual void DrawHud(GameTime gameTime, SpriteBatch spriteBatch)

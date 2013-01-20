@@ -1,0 +1,23 @@
+Content\fonts\TitleFont.xnb
+Content\fonts\ButtonFont.xnb
+Content\fonts\hudFont.xnb
+Content\levels\level0_0.xnb
+Content\levels\level0_1.xnb
+Content\levels\level0_2.xnb
+Content\tiles\empty.xnb
+Content\tiles\ground.xnb
+Content\Button.xnb
+Content\spriteSheets\player sane spritesheet.xnb
+Content\spriteSheets\pill.xnb
+Content\hudElements\sanityBarBackground.xnb
+Content\hudElements\sanityBarFills.xnb
+Content\hudElements\sanityBarOutline.xnb
+Content\tiles\empty.txt
+Content\Button.txt
+Content\levels\level0.actors
+Content\tiles\ground.txt
+Content\spriteSheets\player sane spritesheet.txt
+Content\spriteSheets\pill.txt
+Content\hudElements\sanityBarBackground.txt
+Content\hudElements\sanityBarFills.txt
+Content\hudElements\sanityBarOutline.txt

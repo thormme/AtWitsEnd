@@ -29,14 +29,22 @@ namespace Insanity
 
         public static Dictionary<string, SpriteFont> GameFonts;
 
+        public static int ScreenHeight;
+        public static int ScreenWidth;
+
         public InsanityGame()
         {
             PendingQuit = false;
             graphics = new GraphicsDeviceManager(this);
 
-#if(!DEBUG) 
+#if(!DEBUG)
+            graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
             graphics.IsFullScreen = true;
 #endif
+
+            ScreenHeight = graphics.PreferredBackBufferHeight;
+            ScreenWidth = graphics.PreferredBackBufferWidth;
 
             Content.RootDirectory = "Content";
             GamestateManager = new GamestateManager(Content, graphics);
@@ -103,6 +111,15 @@ namespace Insanity
             foreach (FileInfo fileInfo in fileList)
             {
                 string key = spriteDirectory.Name + "/" + Path.GetFileNameWithoutExtension(fileInfo.Name);
+                GameTextures[key] = Content.Load<Texture2D>(key);
+            }
+
+            System.IO.DirectoryInfo hudDirectory = new System.IO.DirectoryInfo("Content/hudElements");
+            fileList = hudDirectory.GetFiles("*.xnb*", System.IO.SearchOption.AllDirectories);
+
+            foreach (FileInfo fileInfo in fileList)
+            {
+                string key = hudDirectory.Name + "/" + Path.GetFileNameWithoutExtension(fileInfo.Name);
                 GameTextures[key] = Content.Load<Texture2D>(key);
             }
 
