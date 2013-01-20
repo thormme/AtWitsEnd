@@ -31,7 +31,7 @@ namespace Insanity
 
         public static int ScreenHeight;
         public static int ScreenWidth;
-        private MainMenu LoadingScreen;
+        private LoadingScreen LoadingScreen;
 
         public InsanityGame()
         {
@@ -124,7 +124,7 @@ namespace Insanity
                 GameTextures[key] = Content.Load<Texture2D>(key);
             }
 
-            LoadingScreen = new MainMenu();
+            LoadingScreen = new LoadingScreen();
             LoadingScreen.Initialize(Content, graphics);
             LoadingScreen.LoadContent();
             
