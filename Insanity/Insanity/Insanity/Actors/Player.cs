@@ -61,7 +61,9 @@ namespace Insanity.Actors
         public override void Update(GameTime gameTime, double insanityLevel)
         {
             base.Update(gameTime, insanityLevel);
+
             OwnerLevel.Camera.Position += (Position + Size/2f - (OwnerLevel.Camera.Position + new Vector2(OwnerLevel.ScreenWidth, OwnerLevel.ScreenHeight)/2)) * (float)gameTime.ElapsedGameTime.TotalSeconds;
+
             if ((mController as InputHandler).Pause())
             {
                 InsanityGame.GamestateManager.Push(new PauseState());

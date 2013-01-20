@@ -69,5 +69,10 @@ namespace Insanity
         {
             return CurrentKeyboardState.IsKeyDown(Keys.Space) && !OldKeyboardState.IsKeyDown(Keys.Space);
         }
+
+        public bool ViewPhoto()
+        {
+            return CurrentKeyboardState.IsKeyDown(Keys.Space) && !OldKeyboardState.IsKeyDown(Keys.Space);
+        }
     }
 }

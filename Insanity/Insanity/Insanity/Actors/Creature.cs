@@ -32,13 +32,14 @@ namespace Insanity.Actors
         {
             int feetHeight = 10;
             int sideWidth = 10;
+            int inset = 6;
             List<Tile> collidingLeftTiles = OwnerLevel.GetCollidingTiles(new Rectangle((int)Position.X, (int)Position.Y + feetHeight, (int)sideWidth, (int)Size.Y - feetHeight * 2), false);
             List<Tile> collidingRightTiles = OwnerLevel.GetCollidingTiles(new Rectangle((int)Position.X + (int)Size.X - sideWidth, (int)Position.Y + feetHeight, (int)sideWidth, (int)Size.Y - feetHeight * 2), false);
-            List<Tile> collidingFootTiles = OwnerLevel.GetCollidingTiles(new Rectangle((int)Position.X + 2, (int)Position.Y + (int)Size.Y - feetHeight, (int)Size.X - 4, feetHeight), false).Where((tile) => 
+            List<Tile> collidingFootTiles = OwnerLevel.GetCollidingTiles(new Rectangle((int)Position.X + inset, (int)Position.Y + (int)Size.Y - feetHeight, (int)Size.X - inset * 2, feetHeight), false).Where((tile) => 
             {
                 return !(collidingLeftTiles.Contains(tile) || collidingRightTiles.Contains(tile));
             }).ToList();
-            List<Tile> collidingHeadTiles = OwnerLevel.GetCollidingTiles(new Rectangle((int)Position.X + 2, (int)Position.Y, (int)Size.X - 4, feetHeight), false).Where((tile) =>
+            List<Tile> collidingHeadTiles = OwnerLevel.GetCollidingTiles(new Rectangle((int)Position.X + inset, (int)Position.Y, (int)Size.X - inset * 2, feetHeight), false).Where((tile) =>
             {
                 return !(collidingLeftTiles.Contains(tile) || collidingRightTiles.Contains(tile));
             }).ToList();
@@ -153,30 +154,21 @@ namespace Insanity.Actors
                     Position = new Vector2(curPosition.X * Tile.Width, curPosition.Y * Tile.Height);
                     return;
                 }
-                Point up = new Point(curPosition.X, curPosition.Y - 1);
-                Point down = new Point(curPosition.X, curPosition.Y + 1);
-                Point left = new Point(curPosition.X - 1, curPosition.Y);
-                Point right = new Point(curPosition.X + 1, curPosition.Y);
+                Point[] newPoints = new Point[]
+                {
+                    new Point(curPosition.X, curPosition.Y - 1),
+                    new Point(curPosition.X, curPosition.Y + 1),
+                    new Point(curPosition.X - 1, curPosition.Y),
+                    new Point(curPosition.X + 1, curPosition.Y)
+                };
 
-                if (!checkedPositions.Contains(up))
+                foreach (Point point in newPoints)
                 {
-                    positionQueue.Enqueue(up);
-                    checkedPositions.Add(up);
-                }
-                if (!checkedPositions.Contains(down))
-                {
-                    positionQueue.Enqueue(down);
-                    checkedPositions.Add(down);
-                }
-                if (!checkedPositions.Contains(left))
-                {
-                    positionQueue.Enqueue(left);
-                    checkedPositions.Add(left);
-                }
-                if (!checkedPositions.Contains(right))
-                {
-                    positionQueue.Enqueue(right);
-                    checkedPositions.Add(right);
+                    if (Math.Abs(positionPoint.X - point.X) < 3 && Math.Abs(positionPoint.Y - point.Y) < 3 && !checkedPositions.Contains(point))
+                    {
+                        positionQueue.Enqueue(point);
+                        checkedPositions.Add(point);
+                    }
                 }
             }
 
