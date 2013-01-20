@@ -10,7 +10,7 @@ namespace Insanity.Actors
     {
         int blah = Tile.Width;
         public DeathArea(Vector2 position, Vector2 size)
-            : base(position, size, new Sprite("spriteSheets/goal"))
+            : base(position, size, new Sprite("spriteSheets/death area"))
         {
             
         }

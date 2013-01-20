@@ -129,6 +129,7 @@ namespace Insanity
             LoadingScreen.LoadContent();
             
             GamestateManager.Push(new MainMenu());
+            //GamestateManager.Push(new Level("level3"));
         }
 
         /// <summary>
