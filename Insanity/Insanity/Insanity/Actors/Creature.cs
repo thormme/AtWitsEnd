@@ -121,7 +121,7 @@ namespace Insanity.Actors
             {
                 for (int y = 0; y < verticalTiles; y++)
                 {
-                    if (!(OwnerLevel.IsWithinLevel(posX + x, posY + y) && OwnerLevel.GetTile(posX, posY).Solid))
+                    if (!(OwnerLevel.IsWithinLevel(posX + x, posY + y) && !OwnerLevel.GetTile(posX + x, posY + y).Solid))
                     {
                         return false;
                     }
@@ -147,7 +147,7 @@ namespace Insanity.Actors
                 Point curPosition = positionQueue.Dequeue();
                 if (CheckIfRoom(curPosition.X, curPosition.Y, numHorizontalTiles, numVerticalTiles))
                 {
-                    Position = new Vector2(curPosition.X, curPosition.Y);
+                    Position = new Vector2(curPosition.X * Tile.Width, curPosition.Y * Tile.Height);
                     return;
                 }
                 Point up = new Point(curPosition.X, curPosition.Y - 1);
