@@ -28,6 +28,8 @@ namespace Insanity.GameStates
 
         public Player mPlayer { get; protected set; }
 
+        public Goal mGoal { get; protected set; }
+
         GraphicsDeviceManager mGraphics;
         SpriteBatch mSpriteBatch;
 
@@ -45,7 +47,15 @@ namespace Insanity.GameStates
             return new Tile(solid, sprite, x, y, blockRow, blockColumn);
         }
 
+        string LevelName;
+
         public Level(string levelName)
+        {
+            LevelName = levelName;
+            Initialize(levelName);
+        }
+
+        private void Initialize(string levelName)
         {
             Camera = new Camera(new Vector2());
             Loaded = false;
@@ -59,13 +69,15 @@ namespace Insanity.GameStates
                     string[] args = input.Split(' ');
                     Type actorType = Type.GetType(args[0]);
 
-                    Actor actor = (Actor) Activator.CreateInstance(actorType, args.Skip(1).ToList());
+                    Actor actor = (Actor)Activator.CreateInstance(actorType, args.Skip(1).ToList());
                     actor.OwnerLevel = this;
                     Actors.Add(actor);
                 }
             }
 
             mPlayer = Actors.First((actor) => { return (actor as Player) != null; }) as Player;
+
+            mGoal = Actors.First((actor) => { return actor is Goal; }) as Goal;
 
             Tiles = new List<List<Tile>>();
 
@@ -216,6 +228,17 @@ namespace Insanity.GameStates
             if (Camera.Position.Y > mNumTilesVertical * Tile.Height - ScreenHeight)
             {
                 Camera.Position.Y = mNumTilesVertical * Tile.Height - ScreenHeight;
+            }
+
+            if (mPlayer.IsFinished)
+            {
+                InsanityGame.GamestateManager.Pop();
+                InsanityGame.GamestateManager.Push(new Level(mGoal.NextLevel));
+            }
+            else if (mPlayer.IsDead)
+            {
+                InsanityGame.GamestateManager.Push(new DeadState());
+                Initialize(LevelName);
             }
         }
 

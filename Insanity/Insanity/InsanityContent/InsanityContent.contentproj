@@ -240,24 +240,22 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="spriteSheets\doctor harmful spritesheet.png">
-      <Name>doctor harmful spritesheet</Name>
+    <Compile Include="spriteSheets\doctor insane spritesheet.png">
+      <Name>doctor insane spritesheet</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="spriteSheets\doctor visible spritesheet.png">
-      <Name>doctor visible spritesheet</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="spriteSheets\doctor harmful spritesheet.txt">
-      <Name>doctor harmful spritesheet</Name>
+    <None Include="spriteSheets\doctor insane spritesheet.txt">
+      <Name>doctor insane spritesheet</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="spriteSheets\doctor visible spritesheet.txt">
-      <Name>doctor visible spritesheet</Name>
+    <Compile Include="spriteSheets\doctor sane spritesheet.png">
+      <Name>doctor sane spritesheet</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="spriteSheets\doctor sane spritesheet.txt">
+      <Name>doctor sane spritesheet</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -278,6 +276,17 @@
     </Compile>
     <None Include="spriteSheets\trashcan visible spritesheet.txt">
       <Name>trashcan visible spritesheet</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="spriteSheets\goal.png">
+      <Name>goal</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="spriteSheets\goal.txt">
+      <Name>goal</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
