@@ -264,26 +264,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="spriteSheets\trashcan harmful spritesheet.png">
-      <Name>trashcan harmful spritesheet</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <None Include="spriteSheets\trashcan harmful spritesheet.txt">
-      <Name>trashcan harmful spritesheet</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <Compile Include="spriteSheets\trashcan visible spritesheet.png">
-      <Name>trashcan visible spritesheet</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <None Include="spriteSheets\trashcan visible spritesheet.txt">
-      <Name>trashcan visible spritesheet</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="spriteSheets\goal.png">
       <Name>goal</Name>
       <Importer>TextureImporter</Importer>
@@ -291,6 +271,26 @@
     </Compile>
     <None Include="spriteSheets\goal.txt">
       <Name>goal</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="spriteSheets\trashcan insane spritesheet.png">
+      <Name>trashcan insane spritesheet</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="spriteSheets\trashcan insane spritesheet.txt">
+      <Name>trashcan insane spritesheet</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="spriteSheets\trashcan sane spritesheet.png">
+      <Name>trashcan sane spritesheet</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="spriteSheets\trashcan sane spritesheet.txt">
+      <Name>trashcan sane spritesheet</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
