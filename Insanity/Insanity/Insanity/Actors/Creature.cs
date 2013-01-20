@@ -27,6 +27,19 @@ namespace Insanity.Actors
         public bool onGround;
         public bool onLeftWall;
         public bool onRightWall;
+
+        public override Level OwnerLevel
+        {
+            get
+            {
+                return base.OwnerLevel;
+            }
+            set
+            {
+                base.OwnerLevel = value;
+                mController.GiveLevel(value);
+            }
+        }
         
         Vector2[] lastValidPosition = new Vector2[Level.NumInsanityLevels];
 
@@ -213,7 +226,7 @@ namespace Insanity.Actors
                 }
             }
 
-            mController.Update(gameTime);
+            mController.Update(gameTime, this);
             Move(gameTime);
         }
 
