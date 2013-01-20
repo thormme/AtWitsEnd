@@ -1,7 +1,7 @@
 frameWidth: 2 //in blocks
 frameHeight: 4 //in blocks
 maxFramesPerRow: 20 
-NumAnimations: 5
+NumAnimations: 6
 
 AnimationName: Jump
 NextAnimation: Jump2
