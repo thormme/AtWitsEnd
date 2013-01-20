@@ -180,5 +180,21 @@ namespace Insanity
         {
             return currentAnimation.Name;
         }
+
+        public int GetCurrentFrame()
+        {
+            return currentFrame;
+        }
+
+        public bool SetCurrentFrame(int frame)
+        {
+            if (frame < 0)
+                return false;
+            if (frame >= currentAnimation.length)
+                return false;
+
+            currentFrame = frame;
+            return true;
+        }
     }
 }
