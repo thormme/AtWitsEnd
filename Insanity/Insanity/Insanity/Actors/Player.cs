@@ -60,7 +60,7 @@ namespace Insanity.Actors
                 }
             }
             InsanityLevel += gameTime.ElapsedGameTime.TotalSeconds / 214;
-            Console.WriteLine(InsanityLevel);
+
             if (InsanityLevel < inanimateEnemyThreshold)
             {
                 OwnerLevel.InsanityLevel = 0;
