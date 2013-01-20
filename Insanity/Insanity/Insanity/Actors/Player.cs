@@ -33,6 +33,10 @@ namespace Insanity.Actors
             {
                 InsanityGame.GamestateManager.Push(new PauseState());
             }
+            if ((mController as InputHandler).TakePill())
+            {
+                OwnerLevel.InsanityLevel++;
+            }
         }
 
         public virtual void DrawHud(GameTime gameTime, SpriteBatch spriteBatch)
