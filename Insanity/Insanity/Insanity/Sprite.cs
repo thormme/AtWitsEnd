@@ -131,10 +131,12 @@ namespace Insanity
 
                 if (currentFrame >= currentAnimation.length)
                 {
-                    currentFrame = 0;
-                    currentAnimation = spriteInfo.Animations[currentAnimation.NextAnimation];
+                    ChangeAnimation(currentAnimation.NextAnimation);
                 }
-                UpdateSource();
+                else
+                {
+                    UpdateSource();
+                }
             }
         }
 

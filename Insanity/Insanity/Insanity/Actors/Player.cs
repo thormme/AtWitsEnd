@@ -11,13 +11,23 @@ namespace Insanity.Actors
 {
     public class Player : Creature
     {
+        public static double inanimateEnemyThreshold = 0.14;
+        public static double humanEnemyThreshold = 0.35;
+        public static double ghastlyEnemyThreshold = 0.65;
+
+        protected HUD hud;
+
         // 0-fully sane 1-insane;
-        public double InsanityLevel = 0;
+        public double InsanityLevel { get; protected set; }
+        public int CurrentPills { get; protected set; }
 
         public Player(Vector2 position)
             : base(position, new Vector2(60, 240), new Sprite("spriteSheets/player sane spritesheet"), new InputHandler())
         {
-            
+            Sprite.ChangeAnimation("Walk");
+            InsanityLevel = 0;
+            CurrentPills = 0;
+            hud = new HUD();
         }
 
         public Player(List<string> args)
@@ -41,6 +51,7 @@ namespace Insanity.Actors
 
         public virtual void DrawHud(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            hud.Draw(gameTime, spriteBatch);
         }
     }
 }
