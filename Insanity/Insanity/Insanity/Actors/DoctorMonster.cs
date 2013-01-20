@@ -10,7 +10,7 @@ namespace Insanity.Actors
     public class DoctorMonster : Enemy
     {
         public DoctorMonster(Vector2 position)
-            : base(position, new Vector2(60, 240), "spriteSheets/doctor visible spritesheet", "spriteSheets/doctor harmful spritesheet", 
+            : base(position, new Vector2(60, 240), "spriteSheets/doctor sane spritesheet", "spriteSheets/doctor insane spritesheet", 
             new DoctorInput(), Player.perfectlySane, Player.humanEnemyThreshold)
         {
         }
