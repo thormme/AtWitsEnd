@@ -3,27 +3,36 @@
 <img id="paletteImage" src="tiles/hospital sane spritesheet.png" style="display: none">
 <canvas id="palette" width=1600 height=1200></canvas>
 <input type="checkbox" id="solid">solid
+<input type="checkbox" id="actor">actor
+<input type="text" id="type">type
+<input type="text" id="parameters">parameters
 <canvas id="small" width=100 height=100 style="border-width:5px;border-style:solid;"></canvas>
 <canvas id="full" width=6000 height=6000 style="border-width:5px;border-style:solid;"></canvas>
+<textarea id="actorsText"></textarea>
 <script>
 function mouseMove(e) {
-	if (!mouseDown) return;
+	if (!mouseDown || document.getElementById("actor").checked) return;
 	mouseClick(e);
 }
 function mouseClick(e) {
 	var x = e.pageX - fullCanvas.offsetLeft;
 	var y = e.pageY - fullCanvas.offsetTop;
 	
-	xTile = Math.floor(x / 60);
-	yTile = Math.floor(y / 60);
-	x = xTile * 60;
-	y = yTile * 60;
-	fullContext.drawImage(paletteCanvas,sx,sy,swidth,sheight,x,y,60,60);
-	dSmall[0]   = r;
-	dSmall[1]   = g;
-	dSmall[2]   = (document.getElementById("solid").checked*255);
-	dSmall[3]   = 255;
-	smallContext.putImageData( idSmall, xTile, yTile ); 
+	if (!document.getElementById("actor").checked) {
+		xTile = Math.floor(x / 60);
+		yTile = Math.floor(y / 60);
+		x = xTile * 60;
+		y = yTile * 60;
+		fullContext.drawImage(paletteCanvas,sx,sy,swidth,sheight,x,y,60,60);
+		dSmall[0]   = r;
+		dSmall[1]   = g;
+		dSmall[2]   = (document.getElementById("solid").checked*255);
+		dSmall[3]   = 255;
+		smallContext.putImageData( idSmall, xTile, yTile ); 
+	} else {
+		if (actorsText.value != "") actorsText.value += "\n";
+		actorsText.value += document.getElementById("type").value + " " + x + " " + y + " " + document.getElementById("parameters").value;
+	}
 }
 function paletteClick(e) {
 	var x = e.pageX - paletteCanvas.offsetLeft;
@@ -57,6 +66,7 @@ paletteContext.drawImage(document.getElementById("paletteImage"), 0, 0);
 idSmall = smallContext.createImageData(1,1); // only do this once per page
 dSmall  = idSmall.data;                        // only do this once per page
 
+actorsText = document.getElementById("actorsText");
 </script>
 </body>
 </html>
