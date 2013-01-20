@@ -110,6 +110,10 @@
       <Name>level3</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="levels\level4.actors">
+      <Name>level4</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="spriteSheets\player sane spritesheet.txt">
       <Name>player sane spritesheet</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -356,6 +360,23 @@
     </Compile>
     <Compile Include="levels\level3_2.png">
       <Name>level3_2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="levels\level4_0.png">
+      <Name>level4_0</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="levels\level4_1.png">
+      <Name>level4_1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="levels\level4_2.png">
+      <Name>level4_2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
