@@ -10,7 +10,7 @@ namespace Insanity.Actors
     public class TrashCan : Enemy
     {
         public TrashCan(Vector2 position)
-            : base(position, new Vector2(60, 240), "spriteSheets/trashcan visible spritesheet", "spriteSheets/trashcan harmful spritesheet", 
+            : base(position, new Vector2(60, 240), "spriteSheets/trashcan sane spritesheet", "spriteSheets/trashcan insane spritesheet", 
             new TrashInput(), Player.perfectlySane, Player.inanimateEnemyThreshold)
         {
         }
