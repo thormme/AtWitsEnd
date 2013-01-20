@@ -200,6 +200,23 @@ namespace Insanity.GameStates
                 actor.Update(gameTime, mPlayer.InsanityLevel);
             }
             CommitActorChanges();
+
+            if (Camera.Position.X < 0)
+            {
+                Camera.Position.X = 0;
+            }
+            if (Camera.Position.X > mNumTilesHorizontal * Tile.Width - ScreenWidth)
+            {
+                Camera.Position.X = mNumTilesHorizontal * Tile.Width - ScreenWidth;
+            }
+            if (Camera.Position.Y < 0)
+            {
+                Camera.Position.Y = 0;
+            }
+            if (Camera.Position.Y > mNumTilesVertical * Tile.Height - ScreenHeight)
+            {
+                Camera.Position.Y = mNumTilesVertical * Tile.Height - ScreenHeight;
+            }
         }
 
         public void Draw(GameTime gameTime)
