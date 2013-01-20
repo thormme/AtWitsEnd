@@ -96,6 +96,11 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>
+    <Compile Include="fonts\TipFont.spritefont">
+      <Name>TipFont</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
     <None Include="levels\level1.actors">
       <Name>level1</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
