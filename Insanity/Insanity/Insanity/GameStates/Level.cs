@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 using Insanity.Actors;
+using System.Threading;
 
 namespace Insanity.GameStates
 {
@@ -259,7 +260,14 @@ namespace Insanity.GameStates
             else if (mPlayer.IsDead)
             {
                 InsanityGame.GamestateManager.Push(new DeadState());
-                Initialize(LevelName);
+                Loaded = false;
+
+                Thread oThread = new Thread(new ThreadStart(() =>
+                {
+                    Initialize(LevelName);
+                }));
+
+                oThread.Start();
             }
         }
 

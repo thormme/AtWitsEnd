@@ -1,2 +1,6 @@
-Insanity.Actors.Goal,Insanity 1020 240 level1
-Insanity.Actors.Player,Insanity 120 240 
+Insanity.Actors.Goal,Insanity 1740 1140 level1
+Insanity.Actors.Player,Insanity 840 1140 
+Insanity.Actors.TextTip,Insanity 520 1440 Use the arrow keys to move and jump.
+Insanity.Actors.TextTip,Insanity 680 1560 Escape from this place before you lose your mind.
+Insanity.Actors.TextTip,Insanity 240 720 As you lose touch with reality your perception of your surroundings will change.
+Insanity.Actors.TextTip,Insanity 360 820 Your stability is measured by the sanity gauge.

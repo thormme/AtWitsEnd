@@ -130,7 +130,11 @@ namespace Insanity.Actors
 
             if (onGround)
             {
-                Velocity.X *= .95f;
+                Velocity.X *= .90f;
+            }
+            else
+            {
+                Velocity.X *= .985f;
             }
 
             for (int i = 0; i < Level.NumInsanityLevels; i++)
