@@ -121,6 +121,7 @@
     <Compile Include="GamestateManager.cs" />
     <Compile Include="GameStates\DeadState.cs" />
     <Compile Include="GameStates\PauseState.cs" />
+    <Compile Include="GameStates\VictoryState.cs" />
     <Compile Include="HUD.cs" />
     <Compile Include="IInputAgent.cs" />
     <Compile Include="IGamestate.cs" />

@@ -55,6 +55,12 @@ namespace Insanity.GameStates
             Initialize(levelName);
         }
 
+        private void YouWin()
+        {
+            InsanityGame.GamestateManager.Pop();
+            InsanityGame.GamestateManager.Push(new VictoryState());
+        }
+
         private void Initialize(string levelName)
         {
             Camera = new Camera(new Vector2());
@@ -232,8 +238,14 @@ namespace Insanity.GameStates
 
             if (mPlayer.IsFinished)
             {
+                var levelName = mGoal.NextLevel;
+                if (levelName.Equals("Victory"))
+                {
+                    YouWin();
+                    return;
+                }
                 InsanityGame.GamestateManager.Pop();
-                InsanityGame.GamestateManager.Push(new Level(mGoal.NextLevel));
+                InsanityGame.GamestateManager.Push(new Level(levelName));
             }
             else if (mPlayer.IsDead)
             {
