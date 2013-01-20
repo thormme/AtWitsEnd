@@ -52,7 +52,7 @@ namespace Insanity.GameStates
         public Level(string levelName)
         {
             LevelName = levelName;
-            Initialize(levelName);
+            Loaded = false;
         }
 
         private void YouWin()
@@ -290,6 +290,8 @@ namespace Insanity.GameStates
 
             ScreenWidth = mGraphics.PreferredBackBufferWidth;
             ScreenHeight = mGraphics.PreferredBackBufferHeight;
+
+            Initialize(LevelName);
         }
 
         public void LoadContent()
