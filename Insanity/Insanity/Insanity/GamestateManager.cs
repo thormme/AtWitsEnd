@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
+using System.Threading;
 
 namespace Insanity
 {
@@ -23,11 +24,16 @@ namespace Insanity
 
         public void Push(IGamestate state)
         {
-            //TODO: add threading for dynamic load?
-            state.Initialize(Content, Graphics);
-            state.LoadContent();
             GamestateStack.Push(state);
+            //TODO: add threading for dynamic load?
 
+            Thread oThread = new Thread(new ThreadStart(() =>
+            {
+                state.Initialize(Content, Graphics);
+                state.LoadContent();
+            }));
+
+            oThread.Start();
         }
 
         public IGamestate Pop()

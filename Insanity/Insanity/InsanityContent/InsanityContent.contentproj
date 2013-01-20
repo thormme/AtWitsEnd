@@ -96,6 +96,10 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>
+    <None Include="levels\level1.actors">
+      <Name>level1</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="spriteSheets\player sane spritesheet.txt">
       <Name>player sane spritesheet</Name>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -287,6 +291,45 @@
     </Compile>
     <None Include="spriteSheets\trashcan sane spritesheet.txt">
       <Name>trashcan sane spritesheet</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="tiles\hospital insane spritesheet.png">
+      <Name>hospital insane spritesheet</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="tiles\hospital midsane spritesheet.png">
+      <Name>hospital midsane spritesheet</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="levels\level1_0.png">
+      <Name>level1_0</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="levels\level1_1.png">
+      <Name>level1_1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="levels\level1_2.png">
+      <Name>level1_2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="tiles\hospital insane spritesheet.txt">
+      <Name>hospital insane spritesheet</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="tiles\hospital midsane spritesheet.txt">
+      <Name>hospital midsane spritesheet</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

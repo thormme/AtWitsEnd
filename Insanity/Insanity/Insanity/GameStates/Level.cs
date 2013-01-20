@@ -36,9 +36,9 @@ namespace Insanity.GameStates
         List<Actor> mActorsToRemove = new List<Actor>();
         List<Actor> mActorsToAdd = new List<Actor>();
 
-        private Tile CreateTileFromColor(Color color, int x, int y, int index)
+        private Tile CreateTileFromColor(Color color, int x, int y, string assetName)
         {
-            Sprite sprite = new Sprite("tiles/hospital sane spritesheet");
+            Sprite sprite = new Sprite(assetName);
 
             int blockRow    = (int)color.R;
             int blockColumn = (int)color.G;
@@ -52,7 +52,13 @@ namespace Insanity.GameStates
         public Level(string levelName)
         {
             LevelName = levelName;
-            Initialize(levelName);
+            Loaded = false;
+        }
+
+        private void YouWin()
+        {
+            InsanityGame.GamestateManager.Pop();
+            InsanityGame.GamestateManager.Push(new VictoryState());
         }
 
         private void Initialize(string levelName)
@@ -81,8 +87,16 @@ namespace Insanity.GameStates
 
             Tiles = new List<List<Tile>>();
 
+            string[] tileSpriteNames = new string[]
+            {
+                "tiles/hospital sane spritesheet",
+                "tiles/hospital midsane spritesheet",
+                "tiles/hospital insane spritesheet"
+            };
+
             for (int i = 0; i < 3; i++)
             {
+
                 Texture2D levelData = InsanityGame.GameTextures["levels/" + levelName + "_" + i];
 
                 if (i == 0)
@@ -104,7 +118,7 @@ namespace Insanity.GameStates
                 int index = 0;
                 foreach (Color color in retrievedColors)
                 {
-                    tiles.Add(CreateTileFromColor(color, Tile.Width * (index % mNumTilesHorizontal), Tile.Height * (int)(index / mNumTilesHorizontal), index));
+                    tiles.Add(CreateTileFromColor(color, Tile.Width * (index % mNumTilesHorizontal), Tile.Height * (int)(index / mNumTilesHorizontal), tileSpriteNames[i]));
                     index++;
                 }
                 Tiles.Add(tiles);
@@ -232,8 +246,14 @@ namespace Insanity.GameStates
 
             if (mPlayer.IsFinished)
             {
+                var levelName = mGoal.NextLevel;
+                if (levelName.Equals("Victory"))
+                {
+                    YouWin();
+                    return;
+                }
                 InsanityGame.GamestateManager.Pop();
-                InsanityGame.GamestateManager.Push(new Level(mGoal.NextLevel));
+                InsanityGame.GamestateManager.Push(new Level(levelName));
             }
             else if (mPlayer.IsDead)
             {
@@ -278,6 +298,8 @@ namespace Insanity.GameStates
 
             ScreenWidth = mGraphics.PreferredBackBufferWidth;
             ScreenHeight = mGraphics.PreferredBackBufferHeight;
+
+            Initialize(LevelName);
         }
 
         public void LoadContent()

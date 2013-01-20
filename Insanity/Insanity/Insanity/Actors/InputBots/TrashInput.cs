@@ -12,6 +12,7 @@ namespace Insanity.Actors.InputBots
         protected Level LevelRef;
 
         protected bool movingRight;
+        protected bool moving = false;
 
         const int switchTime = 1000; //ms
 
@@ -41,7 +42,8 @@ namespace Insanity.Actors.InputBots
             {
                 movingRight = (can.Position.X < LevelRef.mPlayer.Position.X);
             }
-
+            
+            moving = can.IsHarmful(LevelRef.mPlayer.InsanityLevel);
         }
 
         private void switchDirection()
@@ -56,11 +58,17 @@ namespace Insanity.Actors.InputBots
 
         public bool MoveRight()
         {
+            if (!moving)
+                return false;
+
             return movingRight;
         }
 
         public bool MoveLeft()
         {
+            if (!moving)
+                return false;
+
             return !movingRight;
         }
 

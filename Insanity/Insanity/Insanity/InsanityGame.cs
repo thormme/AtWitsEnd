@@ -31,6 +31,7 @@ namespace Insanity
 
         public static int ScreenHeight;
         public static int ScreenWidth;
+        private MainMenu LoadingScreen;
 
         public InsanityGame()
         {
@@ -123,7 +124,10 @@ namespace Insanity
                 GameTextures[key] = Content.Load<Texture2D>(key);
             }
 
-            //GamestateManager.push(new Level("level0"));
+            LoadingScreen = new MainMenu();
+            LoadingScreen.Initialize(Content, graphics);
+            LoadingScreen.LoadContent();
+            
             GamestateManager.Push(new MainMenu());
         }
 
@@ -145,11 +149,14 @@ namespace Insanity
         {
             // Allows the game to exit
             Input.Update(gameTime);
-            if (Input.Quit() || PendingQuit == true)
+            if (/*Input.Quit() || */PendingQuit == true)
                 this.Exit();
 
             // TODO: Add your update logic here
-            GamestateManager.Current.Update(gameTime);
+            if (GamestateManager.Current.Loaded)
+                GamestateManager.Current.Update(gameTime);
+            else
+                LoadingScreen.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -162,7 +169,10 @@ namespace Insanity
         {
             GraphicsDevice.Clear(Color.Black);
 
-            GamestateManager.Current.Draw(gameTime);
+            if (GamestateManager.Current.Loaded)
+                GamestateManager.Current.Draw(gameTime);
+            else
+                LoadingScreen.Draw(gameTime);
 
             // TODO: Add your drawing code here
 

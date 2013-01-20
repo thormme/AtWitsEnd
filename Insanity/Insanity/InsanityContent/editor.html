@@ -2,6 +2,15 @@
 <body>
 <img id="paletteImage" src="tiles/hospital sane spritesheet.png" style="display: none">
 <canvas id="palette" width=1600 height=1200></canvas>
+<form id="form1" runat="server">
+	<input type='file' onchange="readURL(this);" />
+	<img id="loadedLevel" src="#" alt="your image" />
+</form>
+<form>
+	<input type="text" id="newLevelWidth">width
+	<input type="text" id="newLevelHeight">height
+	<input type="button" id="newLevel" onclick="createNewLevel();" value="New Level">
+</form>
 <input type="checkbox" id="solid">solid
 <input type="checkbox" id="actor">actor
 <input type="text" id="type">type
@@ -10,6 +19,34 @@
 <canvas id="small" width=100 height=100 style="border-width:5px;border-style:solid;"></canvas>
 <canvas id="full" width=6000 height=6000 style="border-width:5px;border-style:solid;"></canvas>
 <script>
+function createNewLevel() {
+	smallCanvas.width = Number(document.getElementById("newLevelWidth").value);
+	smallCanvas.height = Number(document.getElementById("newLevelHeight").value);
+	fullCanvas.width = Number(document.getElementById("newLevelWidth").value) * 60;
+	fullCanvas.height = Number(document.getElementById("newLevelHeight").value) * 60;
+}
+function readURL(input) {
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+
+		reader.onload = function (e) {
+			document.getElementById("loadedLevel").src = e.target.result;
+			smallContext.drawImage(document.getElementById("loadedLevel"), 0, 0);
+			
+			// Get the CanvasPixelArray from the given coordinates and dimensions.
+			var imgd = smallContext.getImageData(0, 0, smallCanvas.width, smallCanvas.height);
+			var pix = imgd.data;
+
+			for (var i = 0, n = pix.length; i < n; i += 4) {
+				var x = (i/4)%smallCanvas.width;
+				var y = Math.floor((i/4) / smallCanvas.width);
+				fullContext.drawImage(paletteCanvas,pix[i+1]*80,pix[i]*80,80,80,x*60,y*60,60,60);
+			}
+		}
+
+		reader.readAsDataURL(input.files[0]);
+	}
+}
 function mouseMove(e) {
 	if (!mouseDown || document.getElementById("actor").checked) return;
 	mouseClick(e);
@@ -26,7 +63,7 @@ function mouseClick(e) {
 		fullContext.drawImage(paletteCanvas,sx,sy,swidth,sheight,x,y,60,60);
 		dSmall[0]   = r;
 		dSmall[1]   = g;
-		dSmall[2]   = (document.getElementById("solid").checked*255);
+		dSmall[2]   = (!(document.getElementById("solid").checked)*255);
 		dSmall[3]   = 255;
 		smallContext.putImageData( idSmall, xTile, yTile ); 
 	} else {
@@ -37,10 +74,10 @@ function mouseClick(e) {
 function paletteClick(e) {
 	var x = e.pageX - paletteCanvas.offsetLeft;
 	var y = e.pageY - paletteCanvas.offsetTop;
-	r = Math.floor(x / 80);
-	g = Math.floor(y / 80);
-	sx = r * 80;
-	sy = g * 80;
+	g = Math.floor(x / 80);
+	r = Math.floor(y / 80);
+	sx = g * 80;
+	sy = r * 80;
 	console.log(sx + " " + sy);
 	swidth = 80;
 	sheight = 80;
