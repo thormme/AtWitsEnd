@@ -59,7 +59,7 @@ namespace Insanity
             sprite.Draw(gameTime, spriteBatch, position, false);
 
             Vector2 fontOrigin = spriteFont.MeasureString(text) / 2;
-            spriteBatch.DrawString(spriteFont, text, fontPosition, selected ? Color.White : Color.Black, 0, fontOrigin, 1, SpriteEffects.None, 0);
+            spriteBatch.DrawString(spriteFont, text, fontPosition, selected ? Color.Black : Color.White, 0, fontOrigin, 1, SpriteEffects.None, 0);
         }
     }
 }
