@@ -35,7 +35,7 @@ namespace Insanity.Actors
                 facingLeft);
         }
 
-        public virtual void Update(GameTime gameTime)
+        public virtual void Update(GameTime gameTime, double insanityLevel)
         {
             Sprite.Update(gameTime);
         }

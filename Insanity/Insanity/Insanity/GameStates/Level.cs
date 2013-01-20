@@ -164,7 +164,7 @@ namespace Insanity.GameStates
         {
             foreach (Actor actor in Actors)
             {
-                actor.Update(gameTime);
+                actor.Update(gameTime, mPlayer.InsanityLevel);
             }
             CommitActorChanges();
         }

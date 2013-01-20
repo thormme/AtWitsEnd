@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Insanity
 {
-    public class InputHandler : IController
+    public class InputHandler : IInputAgent
     {
         KeyboardState CurrentKeyboardState;
         KeyboardState OldKeyboardState;

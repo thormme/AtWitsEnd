@@ -11,6 +11,7 @@ namespace Insanity.Actors
 {
     public class Player : Creature
     {
+        public static double perfectlySane = 0;
         public static double inanimateEnemyThreshold = 0.14;
         public static double humanEnemyThreshold = 0.35;
         public static double ghastlyEnemyThreshold = 0.65;
@@ -22,16 +23,17 @@ namespace Insanity.Actors
         protected Sprite midsaneSprite;
         protected Sprite insaneSprite;
 
+        protected enum SanityState
+        {
+            Sane, Midsane, Insane
+        }
+
         protected SanityState currentSanity;
 
         // 0-fully sane 1-insane;
         public double InsanityLevel { get; protected set; }
         public int CurrentPills { get; protected set; }
 
-        protected enum SanityState
-        {
-            Sane, Midsane, Insane
-        }
 
         public Player(Vector2 position)
             : base(position, new Vector2(60, 240), new Sprite("spriteSheets/player sane spritesheet"), new InputHandler())
@@ -56,9 +58,9 @@ namespace Insanity.Actors
         {
         }
 
-        public override void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime, double insanityLevel)
         {
-            base.Update(gameTime);
+            base.Update(gameTime, insanityLevel);
             OwnerLevel.Camera.Position += (Position + Size/2f - (OwnerLevel.Camera.Position + new Vector2(OwnerLevel.ScreenWidth, OwnerLevel.ScreenHeight)/2)) * (float)gameTime.ElapsedGameTime.TotalSeconds;
             if ((mController as InputHandler).Pause())
             {
@@ -137,17 +139,9 @@ namespace Insanity.Actors
                 case SanityState.Insane:
                     ChangeSprite(insaneSprite);
                     break;
+                default:
+                    break;
             }
-        }
-
-        private void ChangeSprite(Sprite sprite)
-        {
-            string currentAnimation = Sprite.GetAnimation();
-            int currentFrame = Sprite.GetCurrentFrame();
-
-            Sprite = sprite;
-            sprite.ChangeAnimation(currentAnimation, true);
-            sprite.SetCurrentFrame(currentFrame);
         }
 
         public virtual void DrawHud(GameTime gameTime, SpriteBatch spriteBatch)
